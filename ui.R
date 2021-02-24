@@ -23,4 +23,5 @@ ui <- fluidPage(theme = shinytheme("yeti"),
         ) # navbarPage
 ) # fluidPage
 
-# test commit
+# try adding a selectivize input on a new tab to search through CWR Master list
+# does it require to server functions to do this?
