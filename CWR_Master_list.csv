@@ -1,0 +1,565 @@
+Crop,CROP.WILD.RELATIVE,GENEPOOL,GRAFTSTOCK,TRAIT,ONTOLOGY,BREEDING.TYPE
+Alder,Alnus crispa,NA,NA,NA,NA,NA
+Alder,Alnus rubra,NA,NA,NA,NA,NA
+Alder,Alnus rugosa,NA,NA,NA,NA,NA
+Alder,Alnus sinuata,NA,NA,NA,NA,NA
+Amaranth,Amaranthus albus,NA,NA,NA,NA,NA
+Amaranth,Amaranthus californicus,NA,NA,NA,NA,NA
+Amaranth,Amaranthus graecizans,NA,NA,NA,NA,NA
+Amaranth,Amaranthus tuberculatus,NA,NA,NA,NA,NA
+Apple,Malus coronaria,Tertiary,,,NA,
+Apple,Malus fusca,,Graftstock,Abiotic,NA,Waterlogging Tolerance (AB)
+Ash,Fraxinus americana,NA,NA,NA,NA,NA
+Ash,Fraxinus nigra,NA,NA,NA,NA,NA
+Ash,Fraxinus pennsylvanica,NA,NA,NA,NA,NA
+Ash,Fraxinus quadrangulata,NA,NA,NA,NA,NA
+Barley,Hordeum depressum,Tertiary,,,NA,
+Barley,Hordeum jubatum,Tertiary,,Abiotic,NA,Salt Tolerance (AB)
+Barley,Hordeum pusillum,Tertiary,,,NA,
+Beech,Fagus grandifolia,NA,NA,NA,NA,NA
+Bengrass,Agrostis borealis,NA,NA,NA,NA,NA
+Bengrass,Agrostis diegoensis,NA,NA,NA,NA,NA
+Bengrass,Agrostis exarata,NA,NA,NA,NA,NA
+Bengrass,Agrostis hyemalis,NA,NA,NA,NA,NA
+Bengrass,Agrostis perennans,NA,NA,NA,NA,NA
+Birch,Betula lenta,NA,NA,NA,NA,NA
+Birch,Betula lutea,NA,NA,NA,NA,NA
+Birch,Betula neoalaskana,NA,NA,NA,NA,NA
+Birch,Betula occidentalis,NA,NA,NA,NA,NA
+Birch,Betula papyrifera,NA,NA,NA,NA,NA
+Birch,Betula populifolia,NA,NA,NA,NA,NA
+Blueberry,Vaccinium alaskaense,NA,NA,NA,NA,NA
+Blueberry,Vaccinium angustifolium,Primary,,Agronomic,NA,Crop Quality (AG)
+Blueberry,Vaccinium atrococcum,NA,NA,NA,NA,NA
+Blueberry,Vaccinium caespitosum,NA,NA,NA,NA,NA
+Blueberry,Vaccinium corymbsum,NA,NA,NA,NA,NA
+Blueberry,Vaccinium deliciosum,Secondary,,,NA,
+Blueberry,Vaccinium membranaceum,Secondary,,,NA,
+Blueberry,Vaccinium myrtilloides,Tertiary,,,NA,
+Blueberry,Vaccinium myrtillus,,,,NA,
+Blueberry,Vaccinium nubigeum,NA,NA,NA,NA,NA
+Blueberry,Vaccinium ovalifolium,Secondary,,,NA,
+Blueberry,Vaccinium ovatum,Tertiary,,,NA,
+Blueberry,Vaccinium parvifolium,Secondary,,,NA,
+Blueberry,Vaccinium scoparium,Secondary,,,NA,
+Blueberry,Vaccinium stamineum,NA,NA,NA,NA,NA
+Blueberry,Vaccinium uliginosum,Tertiary,,Abiotic,NA,Cold Tolerance (AB)
+Blueberry,Vaccinium vacillans,NA,NA,NA,NA,NA
+Bluegrass,Poa abbreviata,NA,NA,NA,NA,NA
+Bluegrass,Poa alpina,NA,NA,NA,NA,NA
+Bluegrass,Poa alsodes,NA,NA,NA,NA,NA
+Bluegrass,Poa ampla,NA,NA,NA,NA,NA
+Bluegrass,Poa artica,NA,NA,NA,NA,NA
+Bluegrass,Poa arida,NA,NA,NA,NA,NA
+Bluegrass,Poa canbyi,NA,NA,NA,NA,NA
+Bluegrass,Poa confinis,NA,NA,NA,NA,NA
+Bluegrass,Poa cusickii,NA,NA,NA,NA,NA
+Bluegrass,Poa eminens,NA,NA,NA,NA,NA
+Bluegrass,Poa epilis,NA,NA,NA,NA,NA
+Bluegrass,Poa gaspensis,NA,NA,NA,NA,NA
+Bluegrass,Poa gluaca,NA,NA,NA,NA,NA
+Bluegrass,Poa hartzii,NA,NA,NA,NA,NA
+Bluegrass,Poa howellii,NA,NA,NA,NA,NA
+Bluegrass,Poa juncifolia,NA,NA,NA,NA,NA
+Bluegrass,Poa labrodorica,NA,NA,NA,NA,NA
+Bluegrass,Poa laxa,NA,NA,NA,NA,NA
+Bluegrass,Poa leptocoma,NA,NA,NA,NA,NA
+Bluegrass,Poa lettermannii,NA,NA,NA,NA,NA
+Bluegrass,Poa macrantha,NA,NA,NA,NA,NA
+Bluegrass,Poa marcida,NA,NA,NA,NA,NA
+Bluegrass,Poa nemoralis,NA,NA,NA,NA,NA
+Bluegrass,Poa nervosa,NA,NA,NA,NA,NA
+Bluegrass,Poa nevadensis,NA,NA,NA,NA,NA
+Bluegrass,Poa occidentalis,NA,NA,NA,NA,NA
+Bluegrass,Poa palustris,NA,NA,NA,NA,NA
+Bluegrass,Poa pattersonii,NA,NA,NA,NA,NA
+Bluegrass,Poa pratensis,NA,NA,NA,NA,NA
+Bluegrass,Poa saltuensis,NA,NA,NA,NA,NA
+Bluegrass,Poa sandbergii,NA,NA,NA,NA,NA
+Bluegrass,Poa stenantha,NA,NA,NA,NA,NA
+Bluegrass,Poa trivialis,NA,NA,NA,NA,NA
+Bluegrass,Poa vaseyochloa,NA,NA,NA,NA,NA
+Bluestem,Andropogon gerardii,NA,NA,NA,NA,NA
+Bluestem,Andropogon hallii,NA,NA,NA,NA,NA
+Bluestem,Andropogon scoparius,NA,NA,NA,NA,NA
+Bromegrass,Bromus anomalus,NA,NA,NA,NA,NA
+Bromegrass,Bromus canadensis,NA,NA,NA,NA,NA
+Bromegrass,Bromus carinatus,NA,NA,NA,NA,NA
+Bromegrass,Bromus cartharticus,NA,NA,NA,NA,NA
+Bromegrass,Bromus ciliatus,NA,NA,NA,NA,NA
+Bromegrass,Bromus inermis,NA,NA,NA,NA,NA
+Bromegrass,Bromus pacificus,NA,NA,NA,NA,NA
+Bromegrass,Bromus porteri,NA,NA,NA,NA,NA
+Bromegrass,Bromus pubescens,NA,NA,NA,NA,NA
+Bromegrass,Bromus purgans,NA,NA,NA,NA,NA
+Bromegrass,Bromus sitchensis,NA,NA,NA,NA,NA
+Bromegrass,Bromus vulgaris,NA,NA,NA,NA,NA
+Buffaloberry,Sherpherdia argetea,NA,NA,NA,NA,NA
+Buffaloberry,Sherpherdia canadensis,NA,NA,NA,NA,NA
+Butternut,Julans cinera,NA,NA,NA,NA,NA
+Butternut,Julans nigra,NA,NA,NA,NA,NA
+Canary Grass,Phalaris arundinacea,NA,NA,NA,NA,NA
+Cedar,Thuja occidentalis,NA,NA,NA,NA,NA
+Cedar,Thuja plicata,NA,NA,NA,NA,NA
+Cherry,Prunus besseyi,NA,NA,NA,NA,NA
+Cherry,Prunus emarginata,,Graftstock,,NA,
+Cherry,Prunus pensylvanica,Progenitor,Graftstock,Agronomic,NA,Cold Tolerance (AB)
+Cherry,Prunus pumila,Tertiary,,,NA,
+Cherry,Prunus serotina,Tertiary,,Abiotic,NA,Cold Tolerance (AB)
+Cherry,Prunus virginiana,Tertiary,,Biotic,NA,Disease Resistance (B)
+Chestnut,Castanea dentata,Secondary,,,NA,
+Chestnut,Castanea dentata,Secondary,,,NA,
+Clover,Trifolium bifidum,NA,NA,NA,NA,NA
+Clover,Trifolium cyathiferum,NA,NA,NA,NA,NA
+Clover,Trifolium depauperatum,NA,NA,NA,NA,NA
+Clover,Trifolium microcephalum,NA,NA,NA,NA,NA
+Clover,Trifolium microdon,NA,NA,NA,NA,NA
+Clover,Trifolium oliganthum,NA,NA,NA,NA,NA
+Clover,Trifolium reflexum,NA,NA,NA,NA,NA
+Clover,Trifolium tridentatum,NA,NA,NA,NA,NA
+Clover,Trifolium varigatum,NA,NA,NA,NA,NA
+Clover,Trifolium wormskjoldii,NA,NA,NA,NA,NA
+Cranberry,Oxycoccus macrocarpus,NA,NA,NA,NA,NA
+Cranberry,Oxycoccus microcarpus,NA,NA,NA,NA,NA
+Cranberry,Oxycoccus ovalifolius,NA,NA,NA,NA,NA
+Cranberry,Oxycoccus quadripetalus,NA,NA,NA,NA,NA
+Currant,Ribes americanum,Secondary,,Biotic,NA,Disease Resistance (B)
+Currant,Ribes aureum,Tertiary,,,NA,
+Currant,Ribes bracteosum,Secondary,,Agronomic,NA,Growth Habit (AG)
+Currant,Ribes cereum,Tertiary,,,NA,
+Currant,Ribes cynosbati,Secondary,,Agronomic,NA,Crop Quality (AG)
+Currant,Ribes divaricatum,,Graftstock,,NA,
+Currant,Ribes glandulosum,NA,NA,NA,NA,NA
+Currant,Ribes howellii,NA,NA,NA,NA,NA
+Currant,Ribes hudsonianum,Secondary,,Agronomic,NA,Crop Quality (AG)
+Currant,Ribes irriguum,NA,NA,NA,NA,NA
+Currant,Ribes lacustre,NA,NA,NA,NA,NA
+Currant,Ribes laxiflorum,NA,NA,NA,NA,NA
+Currant,Ribes lobbii,NA,NA,NA,NA,NA
+Currant,Ribes sanguineum,Secondary,,Agronomic,NA,Growth Habit (AG)
+Currant,Ribes setosum,NA,NA,NA,NA,NA
+Currant,Ribes triste,Tertiary,,Abiotic,NA,Cold Tolerance (AB)
+Currant,Ribes viscosissiumum,NA,NA,NA,NA,NA
+Currant,Ribes watsonianum,NA,NA,NA,NA,NA
+Cypress,Chamaecyparis nootkatensis,NA,NA,NA,NA,NA
+Douglas fir,Pseudotsuga menziesii,NA,NA,NA,NA,NA
+Elderberry,Sambucus canadensis,NA,NA,NA,NA,NA
+Elderberry,Sambucus cerulea,NA,NA,NA,NA,NA
+Elderberry,Sambucus racemosa,NA,NA,NA,NA,NA
+Elm,Ulmus americana,NA,NA,NA,NA,NA
+Elm,Ulmus rubra,NA,NA,NA,NA,NA
+Elm,Ulmus thomasii,NA,NA,NA,NA,NA
+Evening primrose,Oenothera andina,NA,NA,NA,NA,NA
+Evening primrose,Oenothera biennis,NA,NA,NA,NA,NA
+Evening primrose,Oenothera breviflora,NA,NA,NA,NA,NA
+Evening primrose,Oenothera caespitosa,NA,NA,NA,NA,NA
+Evening primrose,Oenothera contorta,NA,NA,NA,NA,NA
+Evening primrose,Oenothera cruciata,NA,NA,NA,NA,NA
+Evening primrose,Oenothera flava,NA,NA,NA,NA,NA
+Evening primrose,Oenothera nuttallii,NA,NA,NA,NA,NA
+Evening primrose,Oenothera pallida,NA,NA,NA,NA,NA
+Evening primrose,Oenothera parviflora,NA,NA,NA,NA,NA
+Evening primrose,Oenothera pernnis,NA,NA,NA,NA,NA
+Evening primrose,Oenothera pilosella,NA,NA,NA,NA,NA
+Evening primrose,Oenothera serrulata,NA,NA,NA,NA,NA
+Fern,Matteuccia struthipteris,NA,NA,NA,NA,NA
+Fescue,Festuca altaica,NA,NA,NA,NA,NA
+Fescue,Festuca obtusa,NA,NA,NA,NA,NA
+Fescue,Festuca occidentalis,NA,NA,NA,NA,NA
+Fescue,Festuca ovina,NA,NA,NA,NA,NA
+Fescue,Festuca rubra,NA,NA,NA,NA,NA
+Fescue,Festuca subulata,NA,NA,NA,NA,NA
+Fescue,Festuca subuliflora,NA,NA,NA,NA,NA
+Fescue,Festuca viridula,NA,NA,NA,NA,NA
+Fir,Abies amabilis,NA,NA,NA,NA,NA
+Fir,Abies balsamea,NA,NA,NA,NA,NA
+Fir,Abies grandis,NA,NA,NA,NA,NA
+Fir,Abies lasiocarpa,NA,NA,NA,NA,NA
+Flax,Linum medium,NA,NA,NA,NA,NA
+Flax,Linum perenne,NA,NA,NA,NA,NA
+Flax,Linum rigidum,NA,NA,NA,NA,NA
+Flax,Linum sulcatum,NA,NA,NA,NA,NA
+Flax,Linum virginianum,NA,NA,NA,NA,NA
+Grape,Vitis aestivalis,,Graftstock,Biotic,NA,Disease Resistance (B)
+Grape,Vitis riparia,,Graftstock,,NA,
+Hazelnut,Corylus americana,Secondary,,Biotic,NA,Disease Resistance (B)
+Hazelnut,Corylus cornuta,Tertiary,,Biotic,NA,Disease Resistance (B)
+Hemlock,Tsuga canadensis,NA,NA,NA,NA,NA
+Hemlock,Tsuga heterophylla,NA,NA,NA,NA,NA
+Hemlock,Tsuga mertesiana,NA,NA,NA,NA,NA
+Hickory,Carya cordiformis,Primary,,,NA,
+Hickory,Carya glabra,Secondary,,,NA,
+Hickory,Carya laciniosa,Primary,,,NA,
+Hickory,Carya ovata,Primary,,,NA,
+Highbush cranberry,Viburnum acerifolium,NA,NA,NA,NA,NA
+Highbush cranberry,Viburnum alnifolium,NA,NA,NA,NA,NA
+Highbush cranberry,Viburnum cassinoides,NA,NA,NA,NA,NA
+Highbush cranberry,Viburnum dentatum,NA,NA,NA,NA,NA
+Highbush cranberry,Viburnum edule,NA,NA,NA,NA,NA
+Highbush cranberry,Viburnum lantana,NA,NA,NA,NA,NA
+Highbush cranberry,Viburnum lentago,NA,NA,NA,NA,NA
+Highbush cranberry,Viburnum rafinesquianum,NA,NA,NA,NA,NA
+Highbush cranberry,Viburnum trilobum,NA,NA,NA,NA,NA
+Horseradish,Armoracia aquatica,NA,NA,NA,NA,NA
+Hyssop,Agastache foeniculum,NA,NA,NA,NA,NA
+Hyssop,Agastache neptoides,NA,NA,NA,NA,NA
+Hyssop,Agastache scrop hulariaefolia,NA,NA,NA,NA,NA
+Hyssop,Agastache urticifolia,NA,NA,NA,NA,NA
+Larch,Larix laricina,NA,NA,NA,NA,NA
+Larch,Larix lyallii,NA,NA,NA,NA,NA
+Larch,Larix occidentalis,NA,NA,NA,NA,NA
+Lathyrus,Lathyrus bijugatus,NA,NA,NA,NA,NA
+Lathyrus,Lathyrus japonicus,NA,NA,NA,NA,NA
+Lathyrus,Lathyrus littoralis,NA,NA,NA,NA,NA
+Lathyrus,Lathyrus nevadensis,NA,NA,NA,NA,NA
+Lathyrus,Lathyrus ochrolucus,NA,NA,NA,NA,NA
+Lathyrus,Lathyrus palustris,NA,NA,NA,NA,NA
+Lathyrus,Lathyrus venosus,NA,NA,NA,NA,NA
+Lesquerella,Lesquerella alpina,NA,NA,NA,NA,NA
+Lesquerella,Lesquerella arctica,NA,NA,NA,NA,NA
+Lesquerella,Lesquerella douglasii,NA,NA,NA,NA,NA
+Lesquerella,Lesquerella ludoviciana,NA,NA,NA,NA,NA
+Linden,Tilia americana,NA,NA,NA,NA,NA
+Lingonberry,Vaccinium vitis-idaea,Secondary,,,NA,
+Maple,Acer circinnatum,NA,NA,NA,NA,NA
+Maple,Acer glabrum,NA,NA,NA,NA,NA
+Maple,Acer macrophyllum,NA,NA,NA,NA,NA
+Maple,Acer negundo,NA,NA,NA,NA,NA
+Maple,Acer nigrum,NA,NA,NA,NA,NA
+Maple,Acer rubrum,NA,NA,NA,NA,NA
+Maple,Acer pensylvanicum,NA,NA,NA,NA,NA
+Maple,Acer saccharinum,NA,NA,NA,NA,NA
+Maple,Acer saccharum,NA,NA,NA,NA,NA
+Maple,Acer spicatum,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus adsurgens,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus agrestis,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus alpinus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus americanus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus beckwithii,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus bisulcatus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus bodinii,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus bourgovii,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus canadensis,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus collinus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus crassicarpus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus drummondii,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus eucosmus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus filipes,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus flexuosus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus gilviflorus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus gracilis,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus gilviflorus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus gracilis,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus kentrophyta,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus lentiginosus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus gracilis,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus kentrophyta,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus lentiginosus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus lotiflorus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus microcystis,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus miser,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus missouriensis,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus neglectus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus pectinatus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus purshii,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus racemosus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus robbinsii,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus sclerocarpus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus spatulatus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus tenellus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus umbellatus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus vexilliflexus,NA,NA,NA,NA,NA
+Milk-vetch,Astragalus williamsii,NA,NA,NA,NA,NA
+Mint,Mentha arvensis,NA,NA,NA,NA,NA
+Monarda,Monarda fistulosa,NA,NA,NA,NA,NA
+Mulberry,Morus rubra,NA,NA,NA,NA,NA
+"Amaranth, Purple",Amaranthus hybridus,Tertiary,,,NA,
+"Amaranth, Purple",Amaranthus retroflexus,Secondary,,,NA,
+Apricot,Prunus maritima,Tertiary,,,NA,
+Apricot,Prunus pumila var. besseyi,Progenitor,Graftstock,,NA,
+Barley,Hordeum brachyantherum,Tertiary,,,NA,
+Barley,Leymus mollis,Tertiary,,Biotic,NA,Disease Resistance (B)
+Barley,Hordeum brachyantherum subsp. brachyantherum,Tertiary,,,NA,
+Barley,Hordeum jubatum subsp. jubatum,Tertiary,,,NA,
+Barley,Hordeum jubatum subsp. intermedium,Tertiary,,,NA,
+Bilberry,Vaccinium cespitosum,Primary,,,NA,
+Bilberry,Vaccinium corymbosum,Tertiary,,,NA,
+Blackberry,Rubus frondosus,Primary,,Abiotic,NA,Heat Tolerance (AB)
+Blanket-Flower,Gaillardia aristata,Progenitor,,Agronomic,NA,Ornamental Features (AG)
+Bleeding-Heart,Dicentra formosa,Progenitor,,Agronomic,NA,Ornamental Features (AG)
+"Blueberry, Highbush",Vaccinium fuscatum,Secondary,,Abiotic,NA,Cold Tolerance (AB)
+"Blueberry, Highbush",Vaccinium pallidum,Secondary,,Abiotic,NA,Drought Resistance (AB)
+"Blueberry, Highbush",Vaccinium boreale,Secondary,,Abiotic,NA,Cold Tolerance (AB)
+Bluejoint,Calamagrostis canadensis,,,,NA,
+Bromegrass,Bromus carinatus var. marginatus,Secondary,,Biotic,NA,Disease Resistance (B)
+Carrot,Daucus pusillus,Tertiary,,,NA,
+Cranberry,Vaccinium macrocarpon,,,,NA,
+Cranberry,Vaccinium oxycoccos,Secondary,,Agronomic,NA,Crop Quality (AG)
+Cranberry,Vaccinium microcarpum,Primary,,Abiotic,NA,Cold Tolerance (AB)
+"Currant, Black",Ribes oxyacanthoides,Tertiary,,,NA,
+"Currant, Black",Ribes hudsonianum var. petiolare,Secondary,,Biotic,NA,Disease Resistance (B)
+"Currant, Black",Ribes hudsonianum var. hudsonianum,Secondary,,,NA,
+Fawn-Lily,Erythronium oregonum,Progenitor,,Agronomic,NA,Ornamental Features (AG)
+"Filbert, European",Corylus californica,Secondary,,Fertility,NA,Gene Transfer (F)
+Flax,Linum lewisii,Tertiary,,,NA,
+Gooseberry,Ribes hirtellum,Progenitor,,,NA,
+Gooseberry,Ribes inerme,Secondary,,Agronomic,NA,Growth Habit (AG)
+Gooseberry,Ribes oxyacanthoides subsp. irriguum,Secondary,,,NA,
+Gooseberry,Ribes oxyacanthoides subsp. setosum,Secondary,,,NA,
+Gooseberry,Ribes oxyacanthoides subsp. oxyacanthoides,Progenitor,,,NA,
+Gooseberry,Ribes oxyacanthoides subsp. cognatum,Secondary,,,NA,
+"Grape, Wine",Vitis aestivalis var. bicolor,Tertiary,,,NA,
+"Hackberry, Ornamental",Celtis occidentalis,,Graftstock,,NA,
+Heal-All,Prunella vulgaris,,,,NA,
+Hop,Humulus lupulus,,,,NA,
+Hop,Humulus lupulus var. neomexicanus,Primary,,,NA,
+Hop,Humulus lupulus var. lupuloides,Primary,,Agronomic,NA,Crop Quality (AG)
+Lettuce,Lactuca tatarica,Tertiary,,,NA,
+Lettuce,Lactuca tatarica subsp. pulchella,Tertiary,,,NA,
+"Lily, Water-",Nymphaea tetragona,Progenitor,,Agronomic,NA,Ornamental Features (AG)
+Lupin,Lupinus polyphyllus,Progenitor,,Agronomic,NA,Ornamental Features (AG)
+Magnolia,Magnolia acuminata,Progenitor,,Agronomic,NA,Ornamental Features (AG)
+"Mint, Corn",Mentha canadensis,Secondary,,,NA,
+"Mint, Mountain-",Pycnanthemum virginianum,,,,NA,
+Quinoa,Chenopodium berlandieri,Secondary,,,NA,
+Quinoa,Chenopodium berlandieri subsp. berlandieri var. bushianum,Secondary,,,NA,
+Quinoa,Chenopodium berlandieri subsp. berlandieri var. macrocalycium,Secondary,,,NA,
+Quinoa,Chenopodium berlandieri subsp. berlandieri var. zschackei,Secondary,,,NA,
+Quinoa,Chenopodium desiccatum,Tertiary,,,NA,
+Quinoa,Chenopodium watsonii,Tertiary,,,NA,
+Quinoa,Chenopodium standleyanum,Tertiary,,,NA,
+Quinoa,Chenopodium hians,Tertiary,,,NA,
+"Raspberry, Black",Rubus flagellaris,Secondary,,,NA,
+"Raspberry, Red",Rubus arcticus,Tertiary,,Agronomic,NA,High Yield (AG)
+"Raspberry, Red",Rubus nutkanus,Secondary,,,NA,
+"Raspberry, Red",Rubus idaeus subsp. strigosus,,,,NA,
+Rice,Zizania palustris,Tertiary,,,NA,
+"Rice, Wild",Zizania aquatica var. aquatica,Secondary,,,NA,
+"Rice, Wild",Zizania aquatica var. brevis,Secondary,,,NA,
+"Rice, Wild",Zizania palustris var. palustris,Primary,,,NA,
+"Rice, Wild",Zizania palustris var. interior,Primary,,,NA,
+Rosinweed,Silphium integrifolium,,,,NA,
+Rosinweed,Silphium perfoliatum,,,,NA,
+Spiderwort,Tradescantia virginiana,Progenitor,,Agronomic,NA,Ornamental Features (AG)
+Spinach,Blitum capitatum,Tertiary,,,NA,
+Spinach,Blitum nuttallianum,Tertiary,,,NA,
+Strawberry,Fragaria x ananassa,,,,NA,
+Strawberry,Fragaria chiloensis subsp. pacifica,Primary,,,NA,
+Strawberry,Fragaria virginiana subsp. glauca,Primary,,,NA,
+Strawberry,Fragaria vesca subsp. americana,Tertiary,,,NA,
+Strawberry,Fragaria virginiana subsp. platypetala,Primary,,,NA,
+Strawberry,Fragaria vesca subsp. bracteata,Tertiary,,,NA,
+Strawberry,Fragaria virginiana subsp. virginiana,Primary,,,NA,
+Strawberry,Fragaria chiloensis subsp. lucida,Primary,,,NA,
+Strawberry,Dasiphora fruticosa,Tertiary,,,NA,
+Strawberry,Fragaria vesca subsp. bracteata f. bracteata,Tertiary,,,NA,
+Strawberry,Fragaria vesca subsp. bracteata f. helleri,Tertiary,,,NA,
+Strawberry,Fragaria x ananassa subsp. cuneifolia,Primary,,,NA,
+Strawberry,Comarum palustre,Tertiary,,,NA,
+Strawberry,Drymocallis glandulosa,Tertiary,,,NA,
+Sunflower,Helianthus annuus,,,Abiotic,NA,Salt Tolerance (AB)
+Sunflower,Helianthus x laetiflorus,Tertiary,,Agronomic,NA,Crop Quality (AG)
+Sunflower,Helianthus petiolaris subsp. petiolaris,Secondary,,Abiotic,NA,Cold Tolerance (AB)
+Sunflower,Helianthus pauciflorus,Tertiary,,Agronomic,NA,Crop Quality (AG)
+Sunflower,Helianthus pauciflorus subsp. pauciflorus,Tertiary,,Agronomic,NA,Crop Quality (AG)
+Sunflower,Helianthus pauciflorus subsp. subrhomboideus,Tertiary,,Abiotic,NA,Cold Tolerance (AB)
+Tobacco,Nicotiana attenuata,Tertiary,,,NA,
+Wheat,Leymus innovatus,Tertiary,,,NA,
+Wheat,Leymus triticoides,Tertiary,,Abiotic,NA,Salt Tolerance (AB)
+Wheat,Leymus cinereus,Tertiary,,,NA,
+Wheat,Elymus elymoides,Tertiary,,,NA,
+Wheat,Elymus trachycaulus,Tertiary,,Biotic,NA,Disease Resistance (B)
+Wheat,Elymus macrourus,Tertiary,,,NA,
+Wheat,Elymus trachycaulus subsp. trachycaulus,Tertiary,,,NA,
+Wheat,Elymus curvatus,Tertiary,,,NA,
+Wheat,Elymus lanceolatus,Tertiary,,,NA,
+Wheat,Elymus scribneri,Tertiary,,,NA,
+Wheat,Elymus wiegandii,Tertiary,,,NA,
+Wheat,Elymus trachycaulus subsp. subsecundus,Tertiary,,,NA,
+Wheat,Elymus lanceolatus subsp. lanceolatus,Tertiary,,,NA,
+Wheat,Elymus glaucus subsp. glaucus,Tertiary,,,NA,
+Wheat,Elymus lanceolatus subsp. psammophilus,Tertiary,,,NA,
+Wheat,Elymus glaucus subsp. virescens,Tertiary,,,NA,
+Wheat,Elymus lanceolatus subsp. riparius,Tertiary,,,NA,
+Wheat,Elymus violaceus,Tertiary,,,NA,
+Wheat,Elymus albicans,Tertiary,,,NA,
+Wheat,Leymus mollis subsp. mollis,Tertiary,,,NA,
+Wheat,Leymus mollis subsp. villosissimus,Tertiary,,,NA,
+Wheat,Elymus alaskanus,Tertiary,,,NA,
+Witch-Hazel,Hamamelis virginiana,,Graftstock,,NA,
+Oak,Quercus alba,NA,NA,NA,NA,NA
+Oak,Quercus bicolor,NA,NA,NA,NA,NA
+Oak,Quercus garryana,NA,NA,NA,NA,NA
+Oak,Quercus marcrocarpa,NA,NA,NA,NA,NA
+Oak,Quercus muehlenbergii,NA,NA,NA,NA,NA
+Oak,Quercus palustris,NA,NA,NA,NA,NA
+Oak,Quercus prinoides,NA,NA,NA,NA,NA
+Oak,Quercus prinus,NA,NA,NA,NA,NA
+Oak,Quercus rubra,NA,NA,NA,NA,NA
+Oak,Quercus velutina,NA,NA,NA,NA,NA
+Onion,Allium acuminatum,NA,NA,NA,NA,NA
+Onion,Allium amplectens,NA,NA,NA,NA,NA
+Onion,Allium canadense,NA,NA,NA,NA,NA
+Onion,Allium cernuum,NA,NA,NA,NA,NA
+Onion,Allium crenulatum,NA,NA,NA,NA,NA
+Onion,Allium geyeri,NA,NA,NA,NA,NA
+Onion,Allium schoenoprasum,Tertiary,,,NA,
+Onion,Allium stellatum,NA,NA,NA,NA,NA
+Onion,Allium textile,NA,NA,NA,NA,NA
+Onion,Allium tricoccum,NA,NA,NA,NA,NA
+Onosmodium,Onosmodium hipiddissimum,NA,NA,NA,NA,NA
+Onosmodium,Onosmodium occidentale,NA,NA,NA,NA,NA
+Pawpaw,Asimina triloba,NA,NA,NA,NA,NA
+Pecan/hickory,Carya cordiformis,Primary,,,NA,
+Pecan/hickory,Carya glabra,Secondary,,,NA,
+Pecan/hickory,Carya laciniosa,Primary,,,NA,
+Pecan/hickory,Carya ovalis,Secondary,,,NA,
+Pecan/hickory,Carya ovata,Primary,,,NA,
+Pecan/hickory,Carya tomentosa,NA,NA,NA,NA,NA
+Pine,Pinus albicaulis,NA,NA,NA,NA,NA
+Pine,Pinus banksiana,NA,NA,NA,NA,NA
+Pine,Pinus contorta,NA,NA,NA,NA,NA
+Pine,Pinus flexilis,NA,NA,NA,NA,NA
+Pine,Pinus monticola,NA,NA,NA,NA,NA
+Pine,Pinus ponderosa,NA,NA,NA,NA,NA
+Pine,Pinus resinosa,NA,NA,NA,NA,NA
+Pine,Pinus rigida,NA,NA,NA,NA,NA
+Pine,Pinus strobus,NA,NA,NA,NA,NA
+Plum,Prunus americana,Progenitor,Graftstock,,NA,
+Plum,Prunus nigra,Tertiary,,,NA,
+Poplar,Populus angustifolia,NA,NA,NA,NA,NA
+Poplar,Populus balsamifera,NA,NA,NA,NA,NA
+Poplar,Populus deltoides,NA,NA,NA,NA,NA
+Poplar,Populus grandidentata,NA,NA,NA,NA,NA
+Poplar,Populus tremuloides,NA,NA,NA,NA,NA
+Poplar,Populus trichocarpa,NA,NA,NA,NA,NA
+Proso millet,Panicum bicknellii,NA,NA,NA,NA,NA
+Proso millet,Panicum boreale,NA,NA,NA,NA,NA
+Proso millet,Panicum capillare,ProbProg,,,NA,
+Proso millet,Panicum clandestinum,NA,NA,NA,NA,NA
+Proso millet,Panicum colombianum,NA,NA,NA,NA,NA
+Proso millet,Panicum depauperatum,NA,NA,NA,NA,NA
+Proso millet,Panicum dichotomiflorum,NA,NA,NA,NA,NA
+Proso millet,Panicum dichotomum,NA,NA,NA,NA,NA
+Proso millet,Panicum flexile,NA,NA,NA,NA,NA
+Proso millet,Panicum lanuginosum,NA,NA,NA,NA,NA
+Proso millet,Panicum leibergii,NA,NA,NA,NA,NA
+Proso millet,Panicum linearifolium,NA,NA,NA,NA,NA
+Proso millet,Panicum longifolium,NA,NA,NA,NA,NA
+Proso millet,Panicum macrocarpon,NA,NA,NA,NA,NA
+Proso millet,Panicum meridionale,NA,NA,NA,NA,NA
+Proso millet,Panicum occidentale,NA,NA,NA,NA,NA
+Proso millet,Panicum oligosanther,NA,NA,NA,NA,NA
+Proso millet,Panicum pacificum,NA,NA,NA,NA,NA
+Proso millet,Panicum perlongum,NA,NA,NA,NA,NA
+Proso millet,Panicum philadelphicum,NA,NA,NA,NA,NA
+Proso millet,Panicum praecocius,NA,NA,NA,NA,NA
+Proso millet,Panicum rigidulum,NA,NA,NA,NA,NA
+Proso millet,Panicum sphaerocarpon,NA,NA,NA,NA,NA
+Proso millet,Panicum sprentum,NA,NA,NA,NA,NA
+Proso millet,Panicum subvillosum,NA,NA,NA,NA,NA
+Proso millet,Panicum thermale,NA,NA,NA,NA,NA
+Proso millet,Panicum villosissimum,NA,NA,NA,NA,NA
+Proso millet,Panicum virgatum,,,,NA,
+Proso millet,Panicum wilcoxianum,NA,NA,NA,NA,NA
+Proso millet,Panicum xanthophysum,NA,NA,NA,NA,NA
+Quinoa,Chenopodium capitatum,NA,NA,NA,NA,NA
+Quinoa,Chenopodium fremontii,NA,NA,NA,NA,NA
+Quinoa,Chenopodium hybridum,NA,NA,NA,NA,NA
+Quinoa,Chenopodium leptophyllum,NA,NA,NA,NA,NA
+Quinoa,Chenopodium rubrum,NA,NA,NA,NA,NA
+Raspberry,Rubus acualis,NA,NA,NA,NA,NA
+Raspberry,Rubus allegheniensis,Primary,,Agronomic,NA,Crop Quality (AG)
+Raspberry,Rubus articus,NA,NA,NA,NA,NA
+Raspberry,Rubus canadensis,Primary,,Agronomic,NA,Crop Quality (AG)
+Raspberry,Rubus chamaemorus,Tertiary,,,NA,
+Raspberry,Rubus enslenii,NA,NA,NA,NA,NA
+Raspberry,Rubus glagellaris,NA,NA,NA,NA,NA
+Raspberry,Rubus hispidus,NA,NA,NA,NA,NA
+Raspberry,Rubus idaeus,Secondary,,,NA,
+Raspberry,Rubus laciniatus,NA,NA,NA,NA,NA
+Raspberry,Rubus lasiococcus,NA,NA,NA,NA,NA
+Raspberry,Rubus leucodermis,Primary,,,NA,
+Raspberry,Rubus nivalis,NA,NA,NA,NA,NA
+Raspberry,Rubus occidentalis,,,,NA,
+Raspberry,Rubus odoratus,Secondary,,Agronomic,NA,High Yield (AG)
+Raspberry,Rubus parviflorus,NA,NA,NA,NA,NA
+Raspberry,Rubus paracaulis,NA,NA,NA,NA,NA
+Raspberry,Rubus pedatus,NA,NA,NA,NA,NA
+Raspberry,Rubus pensilvanicus,NA,NA,NA,NA,NA
+Raspberry,Rubus procerus,NA,NA,NA,NA,NA
+Raspberry,Rubus pubescens,NA,NA,NA,NA,NA
+Raspberry,Rubus recurvicaulis,NA,NA,NA,NA,NA
+Raspberry,Rubus spectabilis,Primary,,Agronomic,NA,Crop Quality (AG)
+Raspberry,Rubus stellatus,NA,NA,NA,NA,NA
+Raspberry,Rubus ursinus,Primary,,Agronomic,NA,Crop Quality (AG)
+Raspberry,Rubus vermontanus,NA,NA,NA,NA,NA
+Sainfoin,Hedysarum alpinum,NA,NA,NA,NA,NA
+Sainfoin,Hedysarum boreale,NA,NA,NA,NA,NA
+Sainfoin,Hedysarum occidentale,NA,NA,NA,NA,NA
+Sainfoin,Hedysarum sulphurescens,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier alnifolia,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier arborea,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier bartramiana,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier canadensis,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier fernaldii,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier gaspensis,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier humilis,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier huronensis,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier intermedia,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier laevis,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier lucida,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier mucronata,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier sanguinea,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier stolonifera,NA,NA,NA,NA,NA
+Saskatoon,Amelanchier wiegandii,NA,NA,NA,NA,NA
+Spruce,Picea engelmanii,NA,NA,NA,NA,NA
+Spruce,Picea glauca,NA,NA,NA,NA,NA
+Spruce,Picea mariana,NA,NA,NA,NA,NA
+Spruce,Picea rubens,NA,NA,NA,NA,NA
+Spruce,Picea sitchensis,NA,NA,NA,NA,NA
+Strawberry,Fragaria chiloensis,Primary,,Abiotic,NA,Cold Tolerance (AB)
+Strawberry,Fragaria vesca,Tertiary,,Biotic,NA,Disease Resistance (B)
+Strawberry,Fragaria virginiana,Primary,,Agronomic,NA,Crop Quality (AG)
+Sunflower,Helianthus decapetalus,Tertiary,,Biotic,NA,Disease Resistance (B)
+Sunflower,Helianthus divaricatus,Tertiary,,,NA,
+Sunflower,Helianthus giganteus,Tertiary,,Abiotic,NA,Waterlogging Tolerance (AB)
+Sunflower,Helianthus hirsutus,Progenitor,,,NA,
+Sunflower,Helianthus laetiflorus,NA,NA,NA,NA,NA
+Sunflower,Helianthus maximiliani,Tertiary,,Abiotic,NA,Cold Tolerance (AB)
+Sunflower,Helianthus nuttallii,Tertiary,,Agronomic,NA,Crop Quality (AG)
+Sunflower,Helianthus petiolaris,Secondary,,Agronomic,NA,Crop Quality (AG)
+Sunflower,Helianthus strumosus,Tertiary,,,NA,
+Sunflower,Helianthus tuberosus,,,,NA,
+Taxus,Taxus brevifolia,NA,NA,NA,NA,NA
+Taxus,Taxus canadensis,NA,NA,NA,NA,NA
+Timothy,Phleum alpinum,NA,NA,NA,NA,NA
+Trefoil,Lotus denticulatus,NA,NA,NA,NA,NA
+Trefoil,Lotus formosissimus,NA,NA,NA,NA,NA
+Trefoil,Lotus micranthus,NA,NA,NA,NA,NA
+Trefoil,Lotus pinnatus,NA,NA,NA,NA,NA
+Trefoil,Lotus purshianus,NA,NA,NA,NA,NA
+Vetch,Vicia americana,NA,NA,NA,NA,NA
+Vetch,Vicia carolinia,NA,NA,NA,NA,NA
+Vetch,Vicia gigantea,NA,NA,NA,NA,NA
+Walnut,Juglans cinerea,,,,NA,
+Walnut,Juglans nigra,,,,NA,
+Wheatgrass,Agropyron albicans,NA,NA,NA,NA,NA
+Wheatgrass,Agropyron dasystachyum,NA,NA,NA,NA,NA
+Wheatgrass,Agropyron scribneri,NA,NA,NA,NA,NA
+Wheatgrass,Agropyron smithii,NA,NA,NA,NA,NA
+Wheatgrass,Agropyron spicatum,NA,NA,NA,NA,NA
+Wheatgrass,Agropyron trachycaulum,NA,NA,NA,NA,NA
+Wild Rice,Zizania aquatica,Secondary,,,NA,
+Wild Rye,Elymus canadensis,Tertiary,,,NA,
+Wild Rye,Elymus diversiglumis,NA,NA,NA,NA,NA
+Wild Rye,Elymus glaucus,Tertiary,,,NA,
+Wild Rye,Elymus hirsutus,Tertiary,,,NA,
+Wild Rye,Elymus hystrix,Tertiary,,,NA,
+Wild Rye,Elymus innovatus,NA,NA,NA,NA,NA
+Wild Rye,Elymus mollis,NA,NA,NA,NA,NA
+Wild Rye,Elymus piperi,NA,NA,NA,NA,NA
+Wild Rye,Elymus riparius,Tertiary,,,NA,
+Wild Rye,Elymus sibiricus,NA,NA,NA,NA,NA
+Wild Rye,Elymus villosus,NA,NA,NA,NA,NA
+Wild Rye,Elymus virginicus,Tertiary,,,NA,
