@@ -1,17 +1,14 @@
+
 library(tidyverse)
 library(shiny)
 
 tib <- as_tibble(read.csv("Gardens.csv"))
 
-server <- function(input, output){
-  
-  tab <- reactive({ # <-- Reactive function here, filter table according to input
-    tib %>% 
-      filter(Province == input$var1)
+shinyServer(function(input, output){
+  output$gardenData <- renderTable({
+    provinceFilter <- subset(tib, tib$Province == input$inProvince)
   })
-  
-  output$table <- renderTable({ # display filtered table
-      tab()
-    }
-  )
-}
+
+})
+
+
