@@ -3,16 +3,25 @@ library(shiny)
 library(shinythemes)
 
 tibGardens <- as_tibble(read.csv("Gardens.csv"))
+tibCropMaster <- as_tibble(read.csv("CWR_Master_list.csv"))
 
 ui <- fluidPage(theme = shinytheme("yeti"),
   navbarPage("Canadian Crop Wild Relative Inventory",
     tabPanel("BGCI GARDENS",
-          sidebarPanel(
-            selectInput("inProvince", "Select a Province", choices = tibGardens$Province)
-          ),
-          mainPanel(
-            tableOutput("gardenData")
-          )
+        sidebarPanel(
+          selectInput("inProvince", "Select a Province", choices = tibGardens$Province)
+        ),
+        mainPanel(
+          tableOutput("gardenData")
+        )
+    ),
+    tabPanel("Crops",
+             sidebarPanel(
+               selectInput("selectedCrop", "Select a Crop", choices = tibCropMaster$Crop)
+             ),
+             mainPanel(
+               tableOutput("cropData")
+             )
     )
   )
 )
