@@ -2,11 +2,11 @@
 library(tidyverse)
 library(shiny)
 
-tib <- as_tibble(read.csv("Gardens.csv"))
+tibGardens <- as_tibble(read.csv("Gardens.csv"))
 
 shinyServer(function(input, output){
   output$gardenData <- renderTable({
-    provinceFilter <- subset(tib, tib$Province == input$inProvince)
+    provinceFilter <- subset(tibGardens, tibGardens$Province == input$inProvince)
   })
 
 })
