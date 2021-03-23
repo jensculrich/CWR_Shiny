@@ -15,7 +15,8 @@ ui <- fluidPage(theme = shinytheme("yeti"),
           tableOutput("gardenData")
         )
     ) # tabPanel("BGCI GARDENS)
-    # tabPanel()
-  )
-)
+    # add another tabPanel here
+    
+  ) #navbarPage
+) # UI
  
