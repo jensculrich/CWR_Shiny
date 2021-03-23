@@ -2,16 +2,15 @@ library(tidyverse)
 library(shiny)
 
 tibGardens <- as_tibble(read.csv("Gardens.csv"))
-tibCropMaster <- as_tibble(read.csv("CWR_Master_list.csv"))
 
 shinyServer(function(input, output){
+  
+  # gardens is a test output
   output$gardenData <- renderTable({
     provinceFilter <- subset(tibGardens, tibGardens$Province == input$inProvince)
   })
   
-  output$cropData <- renderTable({
-    provinceFilter <- subset(tibCropMaster, tibCropMaster$Crop == input$selectedCrop)
-  })
+  # output$_ <- render_({})
 
 })
 

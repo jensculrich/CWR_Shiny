@@ -3,10 +3,10 @@ library(shiny)
 library(shinythemes)
 
 tibGardens <- as_tibble(read.csv("Gardens.csv"))
-tibCropMaster <- as_tibble(read.csv("CWR_Master_list.csv"))
 
 ui <- fluidPage(theme = shinytheme("yeti"),
   navbarPage("Canadian Crop Wild Relative Inventory",
+    # The BGCI GARDENS IS MEANT TO ACT AS A DUMMY PANEL TO TEST THAT THE APP LAUNCHES 
     tabPanel("BGCI GARDENS",
         sidebarPanel(
           selectInput("inProvince", "Select a Province", choices = tibGardens$Province)
@@ -14,15 +14,8 @@ ui <- fluidPage(theme = shinytheme("yeti"),
         mainPanel(
           tableOutput("gardenData")
         )
-    ),
-    tabPanel("Crops",
-             sidebarPanel(
-               selectInput("selectedCrop", "Select a Crop", choices = tibCropMaster$Crop)
-             ),
-             mainPanel(
-               tableOutput("cropData")
-             )
-    )
+    ) # tabPanel("BGCI GARDENS)
+    # tabPanel()
   )
 )
  
