@@ -1,4 +1,6 @@
-# do we need to load libraries in both server and ui or are they global?
+# in progress: updateSelectInput so that user Crop selection filters 
+# down second selection box to only related CWRs
+# also want these drop down menus in alphabetical order
 
 library(shiny)
 library(shinythemes)
@@ -42,10 +44,10 @@ ui <- fluidPage(theme = shinytheme("yeti"),
     tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis",
         sidebarPanel(
           # need to sort these alphabetically
-          selectInput("selectedCrop", "Select a Crop", 
+          selectInput("inSelectedCrop", "Select a Crop", 
                       choices = full_gap_table$crop),
           # need to filter the list to all CWRs related to the Crop
-          selectInput("selectedCWR", "Select a Crop Wild Relative", 
+          selectInput("inSelectedCWR", "Select a Crop Wild Relative", 
                       choices = full_gap_table$species)
         ) # sidebarPanel
         # add mainPanel

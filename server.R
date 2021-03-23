@@ -1,13 +1,30 @@
+# in progress: updateSelectInput so that user Crop selection filters 
+# down second selection box to only related CWRs
+
 gardens <- as_data_frame(read.csv("Gardens.csv"))
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
+full_gap_table <- as_data_frame(read.csv("full_gap_table.csv"))
 
-shinyServer(function(input, output){
+
+shinyServer(function(input, output, session){
   
   # gardens is a test output
   output$gardenData <- renderTable({
     provinceFilter <- subset(gardens, gardens$Province == input$inProvince)
   })
+  
+  #observe({
+  #  x <- input$inSelectedCrop
+    
+  #  filtered_CWRs <- filter(full_gap_table, full_gap_table$crop == x)
+    
+    # Can also set the label and select items
+  #  updateSelectInput(session, "inSelectedCWR",
+  #                    label = paste("Select a Crop Wild Relative"),
+   #                   choices = filtered_CWRs$species
+  #  )
+ # })# observe
   
   # output$_ <- render_({})
   
