@@ -14,17 +14,18 @@ shinyServer(function(input, output, session){
     provinceFilter <- subset(gardens, gardens$Province == input$inProvince)
   })
   
-  #observe({
-  #  x <- input$inSelectedCrop
+  observe({
+    # user chooses the crop as the selected input
+    x <- input$inSelectedCrop
     
-  #  filtered_CWRs <- filter(full_gap_table, full_gap_table$crop == x)
+    filtered_CWRs <- filter(full_gap_table, full_gap_table$crop == x)
     
-    # Can also set the label and select items
-  #  updateSelectInput(session, "inSelectedCWR",
-  #                    label = paste("Select a Crop Wild Relative"),
-   #                   choices = filtered_CWRs$species
-  #  )
- # })# observe
+    # update select input so that CWRs choices are only those within the specified Crop
+    updateSelectInput(session, "inSelectedCWR",
+                      label = paste("Select a Crop Wild Relative"),
+                      choices = filtered_CWRs$species
+    )
+  }) # observe
   
   # output$_ <- render_({})
   
