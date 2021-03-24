@@ -48,6 +48,8 @@ shinyServer(function(input, output, session){
     
   }) # observe
   
+  # add option for user to select province or ecoregion
+  
   dat <- reactive({ 
      test <- full_gap_table %>%
         filter(full_gap_table$species == input$inSelectedCWR) %>%
@@ -77,7 +79,18 @@ shinyServer(function(input, output, session){
        tigris::geo_join(canada_ecoregions_geojson, test, by = "ECO_NAME")
        }) # reactive
   
-      output$gapAnalysis <- renderPlot({
+    # update so that the main panel has a message e.g. choose a CWR
+    # update so that Species X is replaced by input$inSelectedCWR
+    # update so that no data is still blue rather than yellow when there's no accessions with geo data
+    # update so that a summary table is shown below with:
+    # species name "species"
+    # related crop "crop"
+    # number of native provinces/ecoregions "num_native_provinces"
+    # number of provinces/ecoregions from which a logged accession exists "num_covered_provinces"
+    # number of accessions with geo data "accessions_with_geo_data"
+    # number of accessions with no geo data "accessions_no_geo_data"
+    # number of total accessions "total_accessions_for_species"
+    output$gapAnalysis <- renderPlot({
         ggplot(dat()) +
         geom_sf(aes(fill = binary),
           color = "gray60", size = 0.1) +
