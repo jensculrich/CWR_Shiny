@@ -49,10 +49,10 @@ ui <- fluidPage(theme = shinytheme("yeti"),
           # need to filter the list to all CWRs related to the Crop
           selectInput("inSelectedCWR", "Select a Crop Wild Relative", 
                       choices = full_gap_table$species)
-        ) #, # sidebarPanel
-        #mainPanel(
-        #  tableOutput("gardenData")
-        #)# add mainPanel
+        ), # sidebarPanel
+        mainPanel(
+          plotOutput("gapAnalysis")
+        ) # add mainPanel
       
     ) # tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")
   ) # navbarPage
