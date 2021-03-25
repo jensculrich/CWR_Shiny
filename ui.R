@@ -1,6 +1,10 @@
 # add another table panel with interactive native range heat map 
 # and endemic heat map (to promote further in situ conservation)
 
+# add an about tab, with brief description
+# and summary statistics?
+# and garden contributors/acknowledgments?
+
 library(shiny)
 library(shinythemes)
 
