@@ -26,9 +26,14 @@ canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet 
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
 full_gap_table <- as_data_frame(read.csv("full_gap_table.csv"))
 
-
 ui <- fluidPage(theme = shinytheme("yeti"),
   navbarPage("Canadian Crop Wild Relative Inventory",
+    
+    tabPanel("About Crop Wild Relatives"
+    ), # tabPanel "About Crop Wild Relatives"
+    
+    tabPanel("CWR native ranges"
+    ), # tabPanel "CWR native ranges"
     
     # update so that select input start is empty         
     tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis",
@@ -38,14 +43,28 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                       choices = full_gap_table$crop),
           # need to filter the list to all CWRs related to the Crop
           selectInput("inSelectedCWR", "Select a Crop Wild Relative", 
-                      choices = full_gap_table$species)
+                      choices = full_gap_table$species),
+          selectInput("inProvincesOrEcoregions", "Choose a Geographic Display",
+                      choices = c("Provinces", "Ecoregions")
+          )
         ), # sidebarPanel
         mainPanel(
           plotOutput("gapPlot"),
           tableOutput("gapTable")
         ) # add mainPanel
       
-    ) # tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")
+    ), # tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")
+
+    tabPanel("Acknowledgements"
+    ) # tabPanel "Acknowledgements"
+    
   ) # navbarPage
 ) # ui
- 
+
+
+
+
+
+
+
+
