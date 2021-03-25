@@ -51,7 +51,8 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                       choices = full_gap_table$species)
         ), # sidebarPanel
         mainPanel(
-          plotOutput("gapAnalysis")
+          plotOutput("gapPlot"),
+          tableOutput("gapTable")
         ) # add mainPanel
       
     ) # tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")

@@ -77,20 +77,46 @@ shinyServer(function(input, output, session){
                       -garden, -X, -province)
         
        tigris::geo_join(canada_ecoregions_geojson, test, by = "ECO_NAME")
-       }) # reactive
+    }) # reactive
+  
+  dat2 <- reactive({ 
+    test <- full_gap_table %>%
+      filter(full_gap_table$species == input$inSelectedCWR) %>%
+      group_by(ECO_NAME) %>%
+      # tally the number of rows in each ecoregion with an existing accession (garden is not NA)
+      add_tally(!is.na(garden)) %>%
+      rename("accessions_in_ecoregion" = "n")  %>%
+      ungroup() %>%
+      mutate(accessions_no_geo_data = sum(!is.na(ECO_NAME))) %>%
+      mutate(accessions_with_geo_data = sum(is.na(ECO_NAME))) %>%
+      mutate(total_accessions_for_species = accessions_with_geo_data + accessions_no_geo_data) %>%
+      group_by(ECO_NAME) %>%
+      filter(row_number() == 1) %>%
+      filter(!is.na(ECO_NAME)) %>%
+      # find number of accessions where ECO_NAME = NA and add this as a universal col
+      # drop rows where ECO_NAME = NA
+      mutate(binary = ifelse(
+        accessions_in_ecoregion > 0, 1, 0)) %>%
+      ungroup() %>%
+      mutate(num_native_ecoregions = sum(!duplicated(ECO_NAME))) %>%
+      mutate(num_covered_ecoregions = sum(binary)) %>%
+      mutate(perc_ecoregion_range_covered = 
+               num_covered_ecoregions / num_native_ecoregions) %>%
+      filter(row_number() == 1) %>%
+      dplyr::select(species, crop, num_native_ecoregions, num_covered_ecoregions,
+                    accessions_with_geo_data, accessions_no_geo_data, total_accessions_for_species) %>%
+      rename("native ecoregions" = num_native_ecoregions,
+             "covered ecoregions" = num_covered_ecoregions,
+             "accessions with geographic data" = accessions_with_geo_data,
+             "accessions lacking geographic data" = accessions_no_geo_data,
+             "total accessions" = total_accessions_for_species)
+      
+  })
   
     # update so that the main panel has a message e.g. choose a CWR
     # update so that Species X is replaced by input$inSelectedCWR
     # update so that no data is still blue rather than yellow when there's no accessions with geo data
-    # update so that a summary table is shown below with:
-    # species name "species"
-    # related crop "crop"
-    # number of native provinces/ecoregions "num_native_provinces"
-    # number of provinces/ecoregions from which a logged accession exists "num_covered_provinces"
-    # number of accessions with geo data "accessions_with_geo_data"
-    # number of accessions with no geo data "accessions_no_geo_data"
-    # number of total accessions "total_accessions_for_species"
-    output$gapAnalysis <- renderPlot({
+    output$gapPlot <- renderPlot({
         ggplot(dat()) +
         geom_sf(aes(fill = binary),
           color = "gray60", size = 0.1) +
@@ -103,29 +129,10 @@ shinyServer(function(input, output, session){
               legend.key = element_rect(color = "gray40", size = 0.1),
               plot.title = element_text(color="black", size=10, face="bold.italic", hjust = 0.5)
         )
-      
     }) # renderPlot
   
+    output$gapTable <- renderTable({
+      dat2()
+    }) # renderTable
+    
 }) # server
-  
-
-  # example code from local analysis 
-  #species_gap_analyis_by_ecoregion_sf <- tigris::geo_join(canada_eco_subset, species_gap_analyis_by_ecoregion, by = "ECO_NAME")
-  
-  #ZZ <- ggplot() +
-  #  geom_sf(
-  #    aes(fill = binary), 
-  #    color = "gray60", size = 0.1, data = species_gap_analyis_by_ecoregion_sf) +
-  #  coord_sf(crs = crs_string) +
-  #  scale_fill_distiller(palette = "Spectral") +
-  #  guides(fill = FALSE) +
-  #  theme_map() +
-  #  ggtitle("Conservation of Species X Across Native Range in Canadian Botanic Gardens") +
-  #  theme(panel.grid.major = element_line(color = "white"),
-  #        legend.key = element_rect(color = "gray40", size = 0.1),
-  #        plot.title = element_text(color="black", size=10, face="bold.italic", hjust = 0.5)
-  #  )
-  #ZZ
-
-
-
