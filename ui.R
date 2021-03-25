@@ -25,6 +25,8 @@ library(tigris) # for joining spatial data with data frame classes
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
 full_gap_table <- as_data_frame(read.csv("full_gap_table.csv"))
+# order gap table so that user choices are alphabetically organized
+full_gap_table <- full_gap_table[order(full_gap_table$crop),]
 
 ui <- fluidPage(theme = shinytheme("yeti"),
   navbarPage("Canadian Crop Wild Relative Inventory",
