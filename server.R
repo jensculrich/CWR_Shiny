@@ -1,7 +1,3 @@
-# in progress: updateSelectInput so that user Crop selection filters 
-# down second selection box to only related CWRs
-
-gardens <- as_data_frame(read.csv("Gardens.csv"))
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
 full_gap_table <- as_data_frame(read.csv("full_gap_table.csv"))
@@ -26,13 +22,7 @@ theme_map <- function(base_size=9, base_family="") { # 3
 }
 
 
-
 shinyServer(function(input, output, session){
-  
-  # gardens is a test output
-  output$gardenData <- renderTable({
-    provinceFilter <- subset(gardens, gardens$Province == input$inProvince)
-  }) # output$gardenData
   
   observe({
     # user chooses the crop as the selected input
@@ -49,8 +39,8 @@ shinyServer(function(input, output, session){
   }) # observe
   
   # add option for user to select province or ecoregion
-  
-  dat <- reactive({ 
+  # figure out how to keep map up and show native range for CWRs with ZERO accessions
+  plotData <- reactive({ 
      test <- full_gap_table %>%
         filter(full_gap_table$species == input$inSelectedCWR) %>%
         group_by(ECO_NAME) %>%
@@ -79,7 +69,7 @@ shinyServer(function(input, output, session){
        tigris::geo_join(canada_ecoregions_geojson, test, by = "ECO_NAME")
     }) # reactive
   
-  dat2 <- reactive({ 
+  tableData <- reactive({ 
     test <- full_gap_table %>%
       filter(full_gap_table$species == input$inSelectedCWR) %>%
       group_by(ECO_NAME) %>%
@@ -116,8 +106,9 @@ shinyServer(function(input, output, session){
     # update so that the main panel has a message e.g. choose a CWR
     # update so that Species X is replaced by input$inSelectedCWR
     # update so that no data is still blue rather than yellow when there's no accessions with geo data
+    # add a legend
     output$gapPlot <- renderPlot({
-        ggplot(dat()) +
+        ggplot(plotData()) +
         geom_sf(aes(fill = binary),
           color = "gray60", size = 0.1) +
         coord_sf(crs = crs_string) +
@@ -132,7 +123,7 @@ shinyServer(function(input, output, session){
     }) # renderPlot
   
     output$gapTable <- renderTable({
-      dat2()
+      tableData()
     }) # renderTable
     
 }) # server

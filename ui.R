@@ -1,6 +1,5 @@
-# in progress: updateSelectInput so that user Crop selection filters 
-# down second selection box to only related CWRs
-# also want these drop down menus in alphabetical order
+# add another table panel with interactive native range heat map 
+# and endemic heat map (to promote further in situ conservation)
 
 library(shiny)
 library(shinythemes)
@@ -12,16 +11,13 @@ library(geojsonio) # geo json input and output
 library(spdplyr) # the `dplyr` counterpart for shapes
 library(rmapshaper) # the package that allows geo shape transformation
 library(magrittr) # data wrangling
-library(dplyr)
-library(tidyverse)
-library(ggplot2)
-library(raster)
-library(cartography)
-library(viridis)
-library(tigris)
+library(dplyr) # data wrangling
+library(tidyverse) # data wrangling
+library(ggplot2) # plotting
+library(raster) 
+library(viridis) # for colour schemes
+library(tigris) # for joining spatial data with data frame classes
 
-# do we need to add objects to the environmnet in server and ui or are they global?
-gardens <- as_data_frame(read.csv("Gardens.csv"))
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
 full_gap_table <- as_data_frame(read.csv("full_gap_table.csv"))
@@ -29,18 +25,8 @@ full_gap_table <- as_data_frame(read.csv("full_gap_table.csv"))
 
 ui <- fluidPage(theme = shinytheme("yeti"),
   navbarPage("Canadian Crop Wild Relative Inventory",
-    # The BGCI GARDENS IS MEANT TO ACT AS A DUMMY PANEL TO TEST THAT THE APP LAUNCHES 
-    tabPanel("BGCI GARDENS",
-        sidebarPanel(
-          selectInput("inProvince", "Select a Province", 
-                      choices = gardens$Province)
-        ),
-        mainPanel(
-          tableOutput("gardenData")
-        )
-    ), # tabPanel("BGCI GARDENS)
     
-    # add another tabPanel here
+    # update so that select input start is empty         
     tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis",
         sidebarPanel(
           # need to sort these alphabetically
