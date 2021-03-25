@@ -22,6 +22,7 @@ library(raster)
 library(viridis) # for colour schemes
 library(tigris) # for joining spatial data with data frame classes
 
+# Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
 full_gap_table <- as_data_frame(read.csv("full_gap_table.csv"))
@@ -40,19 +41,27 @@ ui <- fluidPage(theme = shinytheme("yeti"),
     # update so that select input start is empty         
     tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis",
         sidebarPanel(
-          # need to sort these alphabetically
+          # update underlying data frame with categories to facilitate interaction (e.g. fruit, vege, nut, tree)
+          # add selectInput here
+          # user chooses a crop of interest
           selectInput("inSelectedCrop", "Select a Crop", 
                       choices = full_gap_table$crop),
-          # need to filter the list to all CWRs related to the Crop
+          # user chooses a CWR (filtered to match the selected crop)
+          # update this so that user can choose a CWR without first selecting crop
           selectInput("inSelectedCWR", "Select a Crop Wild Relative", 
                       choices = full_gap_table$species),
+          # user chooses to view map with ecoregion or province boundaries displayed
           selectInput("inProvincesOrEcoregions", "Choose a Geographic Display",
                       choices = c("Provinces", "Ecoregions")
-          )
+          # could add a * noting that province is a subset of ecoregion (because ecoregion requires finer lat/long of origin)
+          ) # selectInput 
         ), # sidebarPanel
         mainPanel(
+          # plot the geographic range and gaps
           plotOutput("gapPlot"),
+          # provide summary data for the CWR
           tableOutput("gapTable")
+          # could also add a picture of the CWR
         ) # add mainPanel
       
     ), # tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")

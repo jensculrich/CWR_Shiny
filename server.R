@@ -32,12 +32,14 @@ shinyServer(function(input, output, session){
     # user chooses the crop as the selected input
     x <- input$inSelectedCrop
     
+    # filter the full gap table based on user selection
     filtered_CWRs <- filter(full_gap_table, full_gap_table$crop == x)
     
-    # update select input so that CWRs choices are only those within the specified Crop
     # order filtered table so that user choices for CWR are alphabetically organized
+    # to facilitate user choice
     filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$species),]
     
+    # update select input so that CWRs choices are the subset related to the specified Crop
     updateSelectInput(session, "inSelectedCWR",
                       label = paste("Select a Crop Wild Relative"),
                       choices = filtered_CWRs$species
@@ -45,26 +47,34 @@ shinyServer(function(input, output, session){
     
   }) # observe
   
-  # add option for user to select province or ecoregion
-  # figure out how to keep map up and show native range for CWRs with ZERO accessions
+  # plotData() is a reactive function that filters the gap table to provide 
+  # necessary statistics for plotting (i.e. native range, coverage of native range, total accessions)
+  # plotData() logically follows the user's choice of display:
+  # IF user requests to display provinces, then generate province plot data
+  # ELSE generate ecoregion plot data
   plotData <- reactive({ 
     if(input$inProvincesOrEcoregions == "Provinces"){
       # TRUE (user inputs "Provinces")
+      # filter full gap data frame and calculate species specific stats
       test <- full_gap_table %>%
+        # filter to the user input CWR
         filter(full_gap_table$species == input$inSelectedCWR) %>%
+        
+        # tally the number of rows in each province with an existing accession (garden is not NA)
         group_by(province) %>%
-        # tally the number of rows in each ecoregion with an existing accession (garden is not NA)
         add_tally(!is.na(garden)) %>%
         rename("accessions_in_province" = "n")  %>%
         ungroup() %>%
+        
+        # count the number of accessions w/ and w/out geographic data
         mutate(total_accessions_for_species = sum(!is.na(garden))) %>%
         mutate(accessions_no_geo_data = sum(is.na(province))) %>%
         mutate(accessions_with_geo_data = sum(!is.na(province))) %>%
+        
+        # 
         group_by(province) %>%
         filter(row_number() == 1) %>%
         filter(!is.na(province)) %>%
-        # find number of accessions where province = NA and add this as a universal col
-        # drop rows where province = NA
         mutate(binary = ifelse(
           accessions_in_province > 0, 1, 0)) %>%
         ungroup() %>%
@@ -73,7 +83,8 @@ shinyServer(function(input, output, session){
         mutate(perc_province_range_covered = 
                  num_covered_province / num_native_province)
       
-        tigris::geo_join(canada_provinces_geojson, test,  
+      # join plot data with the spatial data frame necessary for projecting the plot  
+      tigris::geo_join(canada_provinces_geojson, test,  
                          by_sp = "name", by_df = "province")
     
     } else{
@@ -106,6 +117,11 @@ shinyServer(function(input, output, session){
     
   }) # reactive
   
+  # tableData() is a reactive function that filters the gap table to provide 
+  # necessary statistics for a summary table (i.e. native range, coverage of native range, total accessions)
+  # tableData() logically follows the user's choice of display:
+  # IF user requests to display provinces, then generate province table data
+  # ELSE generate ecoregion table data
   tableData <- reactive({ 
     
     if(input$inProvincesOrEcoregions == "Provinces"){
