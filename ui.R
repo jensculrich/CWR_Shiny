@@ -53,6 +53,9 @@ ui <- fluidPage(theme = shinytheme("yeti"),
           # update this so that user can choose a CWR without first selecting crop
           selectInput("inSelectedCWR", "Select a Crop Wild Relative", 
                       choices = province_gap_table$species),
+          # user chooses to view map with ecoregion or province boundaries displayed
+          selectInput("inProvincesOrEcoregions", "Choose a Geographic Display",
+                      choices = c("Provinces", "Ecoregions")
           # could add a * noting that province is a subset of ecoregion (because ecoregion requires finer lat/long of origin)
           ) # selectInput 
         ), # sidebarPanel
