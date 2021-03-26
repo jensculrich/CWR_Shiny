@@ -25,9 +25,12 @@ library(tigris) # for joining spatial data with data frame classes
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
-full_gap_table <- as_data_frame(read.csv("full_gap_table.csv"))
-# order gap table so that user choices are alphabetically organized
-full_gap_table <- full_gap_table[order(full_gap_table$crop),]
+province_gap_table <- as_data_frame(read.csv("province_gap_table.csv"))
+ecoregion_gap_table <- as_data_frame(read.csv("ecoregion_gap_table.csv"))
+# order gap tables so that user choices are alphabetically organized
+province_gap_table <- province_gap_table[order(province_gap_table$crop),]
+ecoregion_gap_table <- ecoregion_gap_table[order(ecoregion_gap_table$crop),]
+
 
 ui <- fluidPage(theme = shinytheme("yeti"),
   navbarPage("Canadian Crop Wild Relative Inventory",
@@ -45,11 +48,11 @@ ui <- fluidPage(theme = shinytheme("yeti"),
           # add selectInput here
           # user chooses a crop of interest
           selectInput("inSelectedCrop", "Select a Crop", 
-                      choices = full_gap_table$crop),
+                      choices = province_gap_table$crop),
           # user chooses a CWR (filtered to match the selected crop)
           # update this so that user can choose a CWR without first selecting crop
           selectInput("inSelectedCWR", "Select a Crop Wild Relative", 
-                      choices = full_gap_table$species),
+                      choices = province_gap_table$species),
           # user chooses to view map with ecoregion or province boundaries displayed
           selectInput("inProvincesOrEcoregions", "Choose a Geographic Display",
                       choices = c("Provinces", "Ecoregions")

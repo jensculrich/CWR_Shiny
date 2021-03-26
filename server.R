@@ -1,7 +1,8 @@
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
-full_gap_table <- as_data_frame(read.csv("full_gap_table.csv"))
+province_gap_table <- as_data_frame(read.csv("province_gap_table.csv"))
+ecoregion_gap_table <- as_data_frame(read.csv("ecoregion_gap_table.csv"))
 
 # Define map projection
 crs_string = "+proj=lcc +lat_1=49 +lat_2=77 +lon_0=-91.52 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs"
@@ -33,7 +34,7 @@ shinyServer(function(input, output, session){
     x <- input$inSelectedCrop
     
     # filter the full gap table based on user selection
-    filtered_CWRs <- filter(full_gap_table, full_gap_table$crop == x)
+    filtered_CWRs <- filter(province_gap_table, province_gap_table$crop == x)
     
     # order filtered table so that user choices for CWR are alphabetically organized
     # to facilitate user choice
@@ -55,10 +56,10 @@ shinyServer(function(input, output, session){
   plotData <- reactive({ 
     if(input$inProvincesOrEcoregions == "Provinces"){
       # TRUE (user inputs "Provinces")
-      # filter full gap data frame and calculate species specific stats
-      test <- full_gap_table %>%
+      # filter province_gap_table frame and calculate species specific stats
+      test <- province_gap_table %>%
         # filter to the user input CWR
-        filter(full_gap_table$species == input$inSelectedCWR) %>%
+        filter(province_gap_table$species == input$inSelectedCWR) %>%
         
         # tally the number of rows in each province with an existing accession (garden is not NA)
         group_by(province) %>%
@@ -89,8 +90,8 @@ shinyServer(function(input, output, session){
     
     } else{
       # FALSE, user inputs "Ecoregions"
-      test <- full_gap_table %>%
-        filter(full_gap_table$species == input$inSelectedCWR) %>%
+      test <- ecoregion_gap_table %>%
+        filter(ecoregion_gap_table$species == input$inSelectedCWR) %>%
         group_by(ECO_NAME) %>%
         # tally the number of rows in each ecoregion with an existing accession (garden is not NA)
         add_tally(!is.na(garden)) %>%
@@ -126,9 +127,9 @@ shinyServer(function(input, output, session){
     
     if(input$inProvincesOrEcoregions == "Provinces"){
       
-      test <- full_gap_table %>%
+      test <- province_gap_table %>%
         # filter the table to selected CWR
-        filter(full_gap_table$species == input$inSelectedCWR) %>%
+        filter(province_gap_table$species == input$inSelectedCWR) %>%
         
         # could use this later for a heatmap, but accessions_in_province is not being used right now
         # tally the number of rows in each province with an existing accession (garden is not NA)
@@ -172,9 +173,9 @@ shinyServer(function(input, output, session){
         
       
     } else {
-      test <- full_gap_table %>%
+      test <- ecoregion_gap_table %>%
         # filter the table to selected CWR
-        filter(full_gap_table$species == input$inSelectedCWR) %>%
+        filter(ecoregion_gap_table$species == input$inSelectedCWR) %>%
         
         # could use this later for a heatmap, but accessions_in_ecoregion is not being used right now
         # tally the number of rows in each ECO_NAME with an existing accession (garden is not NA)
