@@ -33,7 +33,7 @@ ecoregion_gap_table <- ecoregion_gap_table[order(ecoregion_gap_table$crop),]
 
 
 ui <- fluidPage(theme = shinytheme("yeti"),
-  navbarPage("Canadian Crop Wild Relative (CWR) Inventory",
+  navbarPage("Inventory of Canadian Crop Wild Relatives (CWRs) in Botanic Gardens",
     
     tabPanel("About Crop Wild Relatives"
     ), # tabPanel "About Crop Wild Relatives"
@@ -60,7 +60,8 @@ ui <- fluidPage(theme = shinytheme("yeti"),
           ) # selectInput 
         ), # sidebarPanel
         sidebarPanel(
-          "note"
+          "note about province geo data versus ecoregion geo data (ecoregion required 
+          recorded lat/long"
         ),
         mainPanel(
           # plot the geographic range and gaps
@@ -72,7 +73,15 @@ ui <- fluidPage(theme = shinytheme("yeti"),
       
     ), # tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")
 
-    tabPanel("Acknowledgements"
+    tabPanel("Acknowledgements",
+             mainPanel("CWR collection data was contributed by: University of British
+                       Columbia Botanic Garden (Vancouver, BC), Montreal Botanic Garden (Montreal, QC), 
+                       University of Guelph Arboretum (Guelph, ON), Royal Botanic 
+                       Garden (_, ON), etc...",
+                       "Guidance and advice was provided by: Tara Moreau (UBC Botanic Garden),
+                       Colin, Abby, Axel, Claire, Angela, etc.",
+                       "Developed by ..."
+             ) # mainPanel
     ) # tabPanel "Acknowledgements"
     
   ) # navbarPage
