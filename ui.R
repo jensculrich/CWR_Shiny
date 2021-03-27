@@ -33,12 +33,12 @@ ecoregion_gap_table <- ecoregion_gap_table[order(ecoregion_gap_table$crop),]
 
 
 ui <- fluidPage(theme = shinytheme("yeti"),
-  navbarPage("Canadian Crop Wild Relative Inventory",
+  navbarPage("Canadian Crop Wild Relative (CWR) Inventory",
     
     tabPanel("About Crop Wild Relatives"
     ), # tabPanel "About Crop Wild Relatives"
     
-    tabPanel("CWR native ranges"
+    tabPanel("Explore CWR native ranges"
     ), # tabPanel "CWR native ranges"
     
     # update so that select input start is empty         
@@ -59,6 +59,9 @@ ui <- fluidPage(theme = shinytheme("yeti"),
           # could add a * noting that province is a subset of ecoregion (because ecoregion requires finer lat/long of origin)
           ) # selectInput 
         ), # sidebarPanel
+        sidebarPanel(
+          "note"
+        ),
         mainPanel(
           # plot the geographic range and gaps
           plotOutput("gapPlot"),
