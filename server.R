@@ -57,7 +57,7 @@ shinyServer(function(input, output, session){
     if(input$inProvincesOrEcoregions == "Provinces"){
       # TRUE (user inputs "Provinces")
       # filter province_gap_table frame and calculate species specific stats
-      test <- province_gap_table %>%
+      provincePlotData <- province_gap_table %>%
         # filter to the user input CWR
         filter(province_gap_table$species == input$inSelectedCWR) %>%
         
@@ -85,12 +85,12 @@ shinyServer(function(input, output, session){
                  num_covered_province / num_native_province)
       
       # join plot data with the spatial data frame necessary for projecting the plot  
-      tigris::geo_join(canada_provinces_geojson, test,  
+      tigris::geo_join(canada_provinces_geojson, provincePlotData,  
                          by_sp = "name", by_df = "province")
     
     } else{
       # FALSE, user inputs "Ecoregions"
-      test <- ecoregion_gap_table %>%
+      ecoregionPlotData <- ecoregion_gap_table %>%
         filter(ecoregion_gap_table$species == input$inSelectedCWR) %>%
         group_by(ECO_NAME) %>%
         # tally the number of rows in each ecoregion with an existing accession (garden is not NA)
@@ -113,7 +113,8 @@ shinyServer(function(input, output, session){
         mutate(perc_ecoregion_range_covered = 
                  num_covered_ecoregions / num_native_ecoregions) 
       
-        tigris::geo_join(canada_ecoregions_geojson, test, by = "ECO_CODE")
+        tigris::geo_join(canada_ecoregions_geojson, ecoregionPlotData, by_sp = "ECO_NAME", by_df = "ECO_NAME")
+    
     } # else
     
   }) # reactive
