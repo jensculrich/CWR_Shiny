@@ -1,3 +1,16 @@
+# big things to update: 
+# 1 a native distribution tab (possibly display heatmaps for all crop wild relatives or major groups?)
+# 2 fix colour scheme so that native but no accessions is the same colour whether or not we have 1 or more accession rather than reverting to yellow
+# 3 add figure legend, notes for interpretation
+# 4 add crop categories and re-upload and add as a selctInput (make it so that you don't necessarily HAVE to choose category)
+# 5 add individual geo points to the map (does it make sense if some are only for province?)
+# 6 hover over province shows number of accessions from province.
+# 7 add acknowledgements (list of gardens that contributed data, Tara, Colin, Abby, Axel)
+# 8 add the about tab: what are CWRs, why conserve across range, role of botanic gardens.
+
+
+
+
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
