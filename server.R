@@ -82,7 +82,7 @@ shinyServer(function(input, output, session){
         mutate(num_native_province = sum(!duplicated(province))) %>%
         mutate(num_covered_province = sum(binary)) %>%
         mutate(perc_province_range_covered = 
-                 num_covered_province / num_native_province)
+                 num_covered_province / num_native_province) 
       
       # join plot data with the spatial data frame necessary for projecting the plot  
       tigris::geo_join(canada_provinces_geojson, provincePlotData,  
@@ -228,10 +228,13 @@ shinyServer(function(input, output, session){
     # add a legend
     output$gapPlot <- renderPlot({
         
+        # palette1 <- RColorBrewer::brewer.pal(3, "Blues")
+      
         ggplot(plotData()) +
         geom_sf(aes(fill = binary),
           color = "gray60", size = 0.1) +
         coord_sf(crs = crs_string) +
+        # scale_fill_manual(breaks = levels(c(NA, 0, 1)), drop = FALSE, values = palette1) +
         scale_fill_distiller(palette = "Spectral") +
         guides(fill = FALSE) +
         theme_map() +
