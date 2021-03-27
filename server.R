@@ -113,7 +113,7 @@ shinyServer(function(input, output, session){
         mutate(perc_ecoregion_range_covered = 
                  num_covered_ecoregions / num_native_ecoregions) 
       
-        tigris::geo_join(canada_ecoregions_geojson, ecoregionPlotData, by_sp = "ECO_NAME", by_df = "ECO_NAME")
+        tigris::geo_join(canada_ecoregions_geojson, ecoregionPlotData, by = "ECO_NAME")
     
     } # else
     
