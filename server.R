@@ -150,7 +150,7 @@ shinyServer(function(input, output, session){
     
     if(input$inProvincesOrEcoregions == "Provinces"){
       # TRUE (user inputs "Provinces") 
-      test <- province_gap_table %>%
+      provinceTableData <- province_gap_table %>%
         # filter the table to the selected CWR
         filter(province_gap_table$species == input$inSelectedCWR) %>%
         
@@ -191,7 +191,7 @@ shinyServer(function(input, output, session){
                "total accessions" = total_accessions_for_species)
       
     } else {
-      test <- ecoregion_gap_table %>%
+      ecoregionTableData <- ecoregion_gap_table %>%
         # filter the table to the selected CWR
         filter(ecoregion_gap_table$species == input$inSelectedCWR) %>%
         
@@ -222,7 +222,7 @@ shinyServer(function(input, output, session){
         
         # format the data for the summary table 
         filter(row_number() == 1) %>%
-        dplyr::select(species, crop, num_native_ecoregions, num_covered_ecoregions,
+        dplyr::select(num_native_ecoregions, num_covered_ecoregions,
                       accessions_with_geo_data, accessions_no_geo_data, total_accessions_for_species) %>%
         mutate(num_covered_ecoregions = as.integer(num_covered_ecoregions)) %>%
         rename("native ecoregions" = num_native_ecoregions,
