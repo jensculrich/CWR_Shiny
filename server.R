@@ -9,8 +9,6 @@
 # 8 add the about tab: what are CWRs, why conserve across range, role of botanic gardens.
 
 
-
-
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
@@ -42,7 +40,8 @@ theme_map <- function(base_size=9, base_family="") { # 3
 
 shinyServer(function(input, output, session){
   
-  observe({
+  # filter the data set for a CWR of interest
+  observe({ 
     # user chooses the crop as the selected input
     x <- input$inSelectedCrop
     
@@ -85,13 +84,15 @@ shinyServer(function(input, output, session){
         mutate(accessions_no_geo_data = sum(is.na(province))) %>%
         mutate(accessions_with_geo_data = sum(!is.na(province))) %>%
         
-        # 
+        # convert number of accessions to a binary "is there or is there not an accession from x region"
         group_by(province) %>%
         filter(row_number() == 1) %>%
         filter(!is.na(province)) %>%
         mutate(binary = ifelse(
           accessions_in_province > 0, 1, 0)) %>%
         ungroup() %>%
+        
+        # use the binary variable to determine the proportion of native regions with an accession
         mutate(num_native_province = sum(!duplicated(province))) %>%
         mutate(num_covered_province = sum(binary)) %>%
         mutate(perc_province_range_covered = 
@@ -103,29 +104,37 @@ shinyServer(function(input, output, session){
     
     } else{
       # FALSE, user inputs "Ecoregions"
+      # filter province_gap_table frame and calculate species specific stats
       ecoregionPlotData <- ecoregion_gap_table %>%
+        # filter to the user input CWR
         filter(ecoregion_gap_table$species == input$inSelectedCWR) %>%
-        group_by(ECO_NAME) %>%
+        
         # tally the number of rows in each ecoregion with an existing accession (garden is not NA)
+        group_by(ECO_NAME) %>%
         add_tally(!is.na(garden)) %>%
         rename("accessions_in_ecoregion" = "n")  %>%
         ungroup() %>%
+        
+        # count the number of accessions w/ and w/out geographic data
         mutate(total_accessions_for_species = sum(!is.na(garden))) %>%
         mutate(accessions_no_geo_data = sum(is.na(ECO_NAME))) %>%
         mutate(accessions_with_geo_data = sum(!is.na(ECO_NAME))) %>%
+        
+        # convert number of accessions to a binary "is there or is there not an accession from x region"
         group_by(ECO_NAME) %>%
         filter(row_number() == 1) %>%
         filter(!is.na(ECO_NAME)) %>%
-        # find number of accessions where ECO_NAME = NA and add this as a universal col
-        # drop rows where ECO_NAME = NA
         mutate(binary = ifelse(
           accessions_in_ecoregion > 0, 1, 0)) %>%
         ungroup() %>%
+        
+        # use the binary variable to determine the proportion of native regions with an accession
         mutate(num_native_ecoregions = sum(!duplicated(ECO_NAME))) %>%
         mutate(num_covered_ecoregions = sum(binary)) %>%
         mutate(perc_ecoregion_range_covered = 
                  num_covered_ecoregions / num_native_ecoregions) 
       
+        # join plot data with the spatial data frame necessary for projecting the plot      
         tigris::geo_join(canada_ecoregions_geojson, ecoregionPlotData, by = "ECO_NAME")
     
     } # else
@@ -140,43 +149,39 @@ shinyServer(function(input, output, session){
   tableData <- reactive({ 
     
     if(input$inProvincesOrEcoregions == "Provinces"){
-      
+      # TRUE (user inputs "Provinces") 
       test <- province_gap_table %>%
-        # filter the table to selected CWR
+        # filter the table to the selected CWR
         filter(province_gap_table$species == input$inSelectedCWR) %>%
         
-        # could use this later for a heatmap, but accessions_in_province is not being used right now
         # tally the number of rows in each province with an existing accession (garden is not NA)
         group_by(province) %>%
         add_tally(!is.na(garden)) %>%
         rename("accessions_in_province" = "n")  %>%
         ungroup() %>%
         
-
-        # filter table to accessions only, other rows represent 
-        # and then add all the accessions 
-        
-        
+        # count the number of accessions w/ and w/out geographic data
         mutate(accessions_no_geo_data = sum(is.na(province))) %>%
-        # sume rows where garden is not 
         mutate(accessions_with_geo_data = sum(!is.na(province) & !is.na(garden)))  %>%
-        # mutate(accessions_with_geo_data = sum(!is.na(province))) %>%
         mutate(total_accessions_for_species = accessions_with_geo_data + accessions_no_geo_data) %>%
         
+        # convert number of accessions to a binary "is there or is there not an accession from x region"
         group_by(province) %>%
         filter(row_number() == 1) %>%
         filter(!is.na(province)) %>%
-        # find number of accessions where province = NA and add this as a universal col
-        # drop rows where province = NA
         mutate(binary = ifelse(
           accessions_in_province > 0, 1, 0)) %>%
         ungroup() %>%
+        
+        # use the binary variable to determine the proportion of native regions with an accession
         mutate(num_native_province = sum(!duplicated(province))) %>%
         mutate(num_covered_province = sum(binary)) %>%
         mutate(perc_province_range_covered = 
                  num_covered_province / num_native_province) %>%
-        filter(row_number() == 1) %>%
-        dplyr::select(species, crop, num_native_province, num_covered_province,
+        
+        # format the data for the summary table 
+        filter(row_number() == 1) %>% # for now only want one row (could adjust this with row per province)
+        dplyr::select(num_native_province, num_covered_province,
                       accessions_with_geo_data, accessions_no_geo_data, total_accessions_for_species) %>%
         mutate(num_covered_province = as.integer(num_covered_province)) %>%
         rename("native provinces" = num_native_province,
@@ -184,43 +189,38 @@ shinyServer(function(input, output, session){
                "accessions with geographic data" = accessions_with_geo_data,
                "accessions lacking geographic data" = accessions_no_geo_data,
                "total accessions" = total_accessions_for_species)
-        
       
     } else {
       test <- ecoregion_gap_table %>%
-        # filter the table to selected CWR
+        # filter the table to the selected CWR
         filter(ecoregion_gap_table$species == input$inSelectedCWR) %>%
         
-        # could use this later for a heatmap, but accessions_in_ecoregion is not being used right now
-        # tally the number of rows in each ECO_NAME with an existing accession (garden is not NA)
+        # tally the number of rows in each ecoregion with an existing accession (garden is not NA)
         group_by(ECO_NAME) %>%
         add_tally(!is.na(garden)) %>%
         rename("accessions_in_ecoregion" = "n")  %>%
         ungroup() %>%
         
-        
-        # filter table to accessions only, other rows represent 
-        # and then add all the accessions 
-        
-        
+        # count the number of accessions w/ and w/out geographic data
         mutate(accessions_no_geo_data = sum(is.na(ECO_NAME))) %>%
-        # sume rows where garden is not 
         mutate(accessions_with_geo_data = sum(!is.na(ECO_NAME) & !is.na(garden)))  %>%
-        # mutate(accessions_with_geo_data = sum(!is.na(ECO_NAME))) %>%
         mutate(total_accessions_for_species = accessions_with_geo_data + accessions_no_geo_data) %>%
         
+        # convert number of accessions to a binary "is there or is there not an accession from x region"
         group_by(ECO_NAME) %>%
         filter(row_number() == 1) %>%
         filter(!is.na(ECO_NAME)) %>%
-        # find number of accessions where ECO_NAME = NA and add this as a universal col
-        # drop rows where ECO_NAME = NA
         mutate(binary = ifelse(
           accessions_in_ecoregion > 0, 1, 0)) %>%
         ungroup() %>%
+        
+        # use the binary variable to determine the proportion of native regions with an accession
         mutate(num_native_ecoregions = sum(!duplicated(ECO_NAME))) %>%
         mutate(num_covered_ecoregions = sum(binary)) %>%
         mutate(perc_ecoregion_range_covered = 
                  num_covered_ecoregions / num_native_ecoregions) %>%
+        
+        # format the data for the summary table 
         filter(row_number() == 1) %>%
         dplyr::select(species, crop, num_native_ecoregions, num_covered_ecoregions,
                       accessions_with_geo_data, accessions_no_geo_data, total_accessions_for_species) %>%
@@ -239,6 +239,8 @@ shinyServer(function(input, output, session){
     # update so that Species X is replaced by input$inSelectedCWR
     # update so that no data is still blue rather than yellow when there's no accessions with geo data
     # add a legend
+    
+    # add plot to the main panel using the reactive plotData() function
     output$gapPlot <- renderPlot({
         
         # palette1 <- RColorBrewer::brewer.pal(3, "Blues")
@@ -258,7 +260,8 @@ shinyServer(function(input, output, session){
         )
       
     }) # renderPlot
-  
+    
+    # add gap table to the main panel using the reactive tableData() function
     output$gapTable <- renderTable({
       tableData()
     }) # renderTable
