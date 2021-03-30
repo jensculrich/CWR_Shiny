@@ -37,8 +37,11 @@ theme_map <- function(base_size=9, base_family="") { # 3
     )
 }
 
+# write a function to handle no data input (rather than throwing an error I want to display a grey map)
+
 
 shinyServer(function(input, output, session){
+  
   
   # filter the data set for a CWR of interest
   observe({ 
@@ -242,24 +245,29 @@ shinyServer(function(input, output, session){
     
     # add plot to the main panel using the reactive plotData() function
     output$gapPlot <- renderPlot({
-        
-        # palette1 <- RColorBrewer::brewer.pal(3, "Blues")
       
-        ggplot(plotData()) +
-        geom_sf(aes(fill = binary),
-          color = "gray60", size = 0.1) +
-        coord_sf(crs = crs_string) +
-        # scale_fill_manual(breaks = levels(c(NA, 0, 1)), drop = FALSE, values = palette1) +
-        scale_fill_distiller(palette = "Spectral") +
-        guides(fill = FALSE) +
-        theme_map() +
-        ggtitle("") +
-        theme(panel.grid.major = element_line(color = "white"),
-              legend.key = element_rect(color = "gray40", size = 0.1),
-              plot.title = element_text(color="black", size=10, face="bold.italic", hjust = 0.5)
-        )
+      # validate allows us to share a prompt (rather than an error message until a CWR is chosen)
+      shiny::validate(
+        need(input$inSelectedCrop, 'Select a crop to filter the list of crop wild relatives')
+      )
       
-    }) # renderPlot
+      # use ggplot to map the native range and conserved accessions  
+      # palette1 <- RColorBrewer::brewer.pal(3, "Blues")
+      ggplot(plotData()) +
+      geom_sf(aes(fill = binary),
+        color = "gray60", size = 0.1) +
+      coord_sf(crs = crs_string) +
+      # scale_fill_manual(breaks = levels(c(NA, 0, 1)), drop = FALSE, values = palette1) +
+      scale_fill_distiller(palette = "Spectral") +
+      guides(fill = FALSE) +
+      theme_map() +
+      ggtitle("") +
+      theme(panel.grid.major = element_line(color = "white"),
+            legend.key = element_rect(color = "gray40", size = 0.1),
+            plot.title = element_text(color="black", 
+            size=10, face="bold.italic", hjust = 0.5))
+
+    }) # end renderPlot
     
     # add gap table to the main panel using the reactive tableData() function
     output$gapTable <- renderTable({

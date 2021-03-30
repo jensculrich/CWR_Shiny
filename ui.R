@@ -59,8 +59,8 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                       choices = c("Provinces", "Ecoregions"),
           # could add a * noting that province is a subset of ecoregion (because ecoregion requires finer lat/long of origin)
           ), # end selectInput 
-          "*provincial coverage is more complete given that gardens more frequently record
-          province of origin versus latitude/longitude of origin for wild-collected garden accessions"
+          "*note: a larger proportion of accessions are associated with coarser scale 
+          province versus finer scale ecoregion geographic origin information"
         ), # end sidebarPanel
         
         mainPanel(
