@@ -32,7 +32,7 @@ theme_map <- function(base_size=9, base_family="") { # 3
           panel.spacing=unit(0, "lines"),
           plot.background=element_blank(),
           legend.justification = c(0,0),
-          legend.position = c(-.15,0)
+          legend.position = c(-.25,0)
     )
 }
 
@@ -45,8 +45,36 @@ shinyServer(function(input, output, session){
 #  NATIVE RANGE  #  
 ##################
   
-  
-
+  # want to have options for total CWRs, endemic CWRs, option to select a category
+  # option to select by province or ecoregion
+  output$choroplethPlot <- renderPlot({
+    
+    test <- province_gap_table %>%
+      # filter for garden = NA
+      filter(is.na(garden)) %>%
+      # group by province
+      group_by(province) %>%
+      # tally the number of species
+      add_tally()
+      
+    # join plot data with the spatial data frame necessary for projecting the plot  
+    testProvinceData <- tigris::geo_join(canada_provinces_geojson, test,  
+                     by_sp = "name", by_df = "province")
+    
+    # use ggplot to map the native range and conserved accessions  
+    ggplot(testProvinceData) +
+      geom_sf(aes(fill = n),
+              color = "gray60", size = 0.1) +
+      coord_sf(crs = crs_string) +
+      scale_fill_distiller(palette = "Spectral") +
+      theme_map() +
+      ggtitle("") +
+      theme(panel.grid.major = element_line(color = "white"),
+            plot.title = element_text(color="black",
+                                      size=10, face="bold.italic", hjust = 0.5),
+            legend.text = element_text(size=10))
+    
+  }) # end renderPlot
 
   
 ##################
@@ -247,11 +275,6 @@ shinyServer(function(input, output, session){
     
       
   })
-  
-    # update so that the main panel has a message e.g. choose a CWR
-    # update so that Species X is replaced by input$inSelectedCWR
-    # update so that no data is still blue rather than yellow when there's no accessions with geo data
-    # add a legend
     
     # add plot to the main panel using the reactive plotData() function
     output$gapPlot <- renderPlot({
@@ -262,7 +285,6 @@ shinyServer(function(input, output, session){
       )
       
       # use ggplot to map the native range and conserved accessions  
-      # palette1 <- RColorBrewer::brewer.pal(3, "Blues")
       ggplot(plotData()) +
       geom_sf(aes(fill = as.factor(binary)),
         color = "gray60", size = 0.1) +
@@ -272,14 +294,15 @@ shinyServer(function(input, output, session){
                                    ">1 accession with geographic data held in collection", 
                                    "Outside of native range")) +
       guides(fill = guide_legend(title = "Conservation Status in Botanic Gardens", 
-                    title.position = "top"
+                    title.position = "top",
+                    title.theme = element_text(size = 10, face = "bold")
                     )) +
       theme_map() +
       ggtitle("") +
       theme(panel.grid.major = element_line(color = "white"),
-            # legend.key = element_rect(color = "gray40", size = 0.1),
-            plot.title = element_text(color="black", 
-            size=10, face="bold.italic", hjust = 0.5))
+            plot.title = element_text(color="black",
+            size=10, face="bold.italic", hjust = 0.5),
+            legend.text = element_text(size=10))
 
     }) # end renderPlot
     
