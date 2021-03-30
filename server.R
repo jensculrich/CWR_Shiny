@@ -1,13 +1,12 @@
 # big things to update: 
 # 1 a native distribution tab (possibly display heatmaps for all crop wild relatives or major groups?)
-# 2 fix colour scheme so that native but no accessions is the same colour whether or not we have 1 or more accession rather than reverting to yellow
 # 3 add figure legend, notes for interpretation
 # 4 add crop categories and re-upload and add as a selctInput (make it so that you don't necessarily HAVE to choose category)
 # 5 add individual geo points to the map (does it make sense if some are only for province?)
 # 6 hover over province shows number of accessions from province.
 # 7 add acknowledgements (list of gardens that contributed data, Tara, Colin, Abby, Axel)
 # 8 add the about tab: what are CWRs, why conserve across range, role of botanic gardens.
-
+# 9 add associated wiki picture of genus
 
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
@@ -33,7 +32,7 @@ theme_map <- function(base_size=9, base_family="") { # 3
           panel.spacing=unit(0, "lines"),
           plot.background=element_blank(),
           legend.justification = c(0,0),
-          legend.position = c(0,0)
+          legend.position = c(-.15,0)
     )
 }
 
@@ -41,7 +40,18 @@ theme_map <- function(base_size=9, base_family="") { # 3
 
 
 shinyServer(function(input, output, session){
+
+##################
+#  NATIVE RANGE  #  
+##################
   
+  
+
+
+  
+##################
+#  GAP ANALYSIS  #  
+##################
   
   # filter the data set for a CWR of interest
   observe({ 
@@ -257,13 +267,17 @@ shinyServer(function(input, output, session){
       geom_sf(aes(fill = as.factor(binary)),
         color = "gray60", size = 0.1) +
       coord_sf(crs = crs_string) +
-      scale_fill_manual(values = c("gray80", "gray18")) +
-      # scale_fill_distiller(palette = "Spectral") +
-      guides(fill = FALSE) +
+      scale_fill_manual(values = c("gray80", "gray18"), 
+                        labels = c("No accessions with geographic data held in collection", 
+                                   ">1 accession with geographic data held in collection", 
+                                   "Outside of native range")) +
+      guides(fill = guide_legend(title = "Conservation Status in Botanic Gardens", 
+                    title.position = "top"
+                    )) +
       theme_map() +
       ggtitle("") +
       theme(panel.grid.major = element_line(color = "white"),
-            legend.key = element_rect(color = "gray40", size = 0.1),
+            # legend.key = element_rect(color = "gray40", size = 0.1),
             plot.title = element_text(color="black", 
             size=10, face="bold.italic", hjust = 0.5))
 

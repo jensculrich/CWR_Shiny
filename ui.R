@@ -38,7 +38,10 @@ ui <- fluidPage(theme = shinytheme("yeti"),
     tabPanel("About Crop Wild Relatives"
     ), # end tabPanel "About Crop Wild Relatives"
     
-    tabPanel("Explore CWR native ranges"
+    tabPanel("Explore CWR native ranges",
+      mainPanel(
+        plotOutput("choroplethPlot")
+      )
     ), # end tabPanel "CWR native ranges"
     
     # update so that select input start is empty         
