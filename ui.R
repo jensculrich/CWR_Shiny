@@ -36,14 +36,15 @@ ui <- fluidPage(theme = shinytheme("yeti"),
   navbarPage("Inventory of Canadian Crop Wild Relatives (CWRs) in Botanic Gardens",
     
     tabPanel("About Crop Wild Relatives"
-    ), # tabPanel "About Crop Wild Relatives"
+    ), # end tabPanel "About Crop Wild Relatives"
     
     tabPanel("Explore CWR native ranges"
-    ), # tabPanel "CWR native ranges"
+    ), # end tabPanel "CWR native ranges"
     
     # update so that select input start is empty         
     tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis",
         sidebarPanel(
+          
           # update underlying data frame with categories to facilitate interaction (e.g. fruit, vege, nut, tree)
           # add selectInput here
           # user chooses a crop of interest
@@ -54,24 +55,23 @@ ui <- fluidPage(theme = shinytheme("yeti"),
           selectInput("inSelectedCWR", "Select a Crop Wild Relative", 
                       choices = province_gap_table$species),
           # user chooses to view map with ecoregion or province boundaries displayed
-          selectInput("inProvincesOrEcoregions", "Choose a Geographic Display",
-                      choices = c("Provinces", "Ecoregions")
+          selectInput("inProvincesOrEcoregions", "Choose a Geographic Display*",
+                      choices = c("Provinces", "Ecoregions"),
           # could add a * noting that province is a subset of ecoregion (because ecoregion requires finer lat/long of origin)
-          ) # selectInput 
-        ), # sidebarPanel
-        sidebarPanel(
-          "note about province geo data versus ecoregion geo data (ecoregion required 
-          recorded lat/long"
-        ),
+          ), # end selectInput 
+          "*provincial coverage is more complete given that gardens more frequently record
+          province of origin versus latitude/longitude of origin for wild-collected garden accessions"
+        ), # end sidebarPanel
+        
         mainPanel(
           # plot the geographic range and gaps
           plotOutput("gapPlot"),
           # provide summary data for the CWR
           tableOutput("gapTable")
           # could also add a picture of the CWR
-        ) # add mainPanel
+        ) # end mainPanel
       
-    ), # tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")
+    ), # end tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")
 
     tabPanel("Acknowledgements",
              mainPanel("CWR collection data was contributed by: University of British
