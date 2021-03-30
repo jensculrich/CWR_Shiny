@@ -254,11 +254,11 @@ shinyServer(function(input, output, session){
       # use ggplot to map the native range and conserved accessions  
       # palette1 <- RColorBrewer::brewer.pal(3, "Blues")
       ggplot(plotData()) +
-      geom_sf(aes(fill = binary),
+      geom_sf(aes(fill = as.factor(binary)),
         color = "gray60", size = 0.1) +
       coord_sf(crs = crs_string) +
-      # scale_fill_manual(breaks = levels(c(NA, 0, 1)), drop = FALSE, values = palette1) +
-      scale_fill_distiller(palette = "Spectral") +
+      scale_fill_manual(values = c("gray80", "gray18")) +
+      # scale_fill_distiller(palette = "Spectral") +
       guides(fill = FALSE) +
       theme_map() +
       ggtitle("") +
