@@ -42,7 +42,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
       sidebarPanel(
         # input, what would you like to do?
         selectInput("inTotalOrEndemic", "What would you like to do?",
-                    choices = c("natives", "endemics")),
+                    choices = c("Map Native CWRs", "Map Endemic CWRs")),
         # user chooses to view map with ecoregion or province boundaries displayed
         selectInput("inNativeProvincesOrEcoregions", "Choose a Geographic Display*",
                     choices = c("Provinces", "Ecoregions"))
