@@ -115,6 +115,7 @@ shinyServer(function(input, output, session){
     
   }) # end reactive plot data
   
+  # want to filter this table when you click on a province 
   tableDataNativeRanges <- reactive({
     if(input$inNativeProvincesOrEcoregions == "Provinces"){
       if(input$inTotalOrEndemic == "Map Native CWRs") {
@@ -142,11 +143,7 @@ shinyServer(function(input, output, session){
           group_by(province) %>%
           mutate(variable = sum(is_endemic))
       } # end nested else, endemics
-      
-      # join plot data with the spatial data frame necessary for projecting the plot  
-      native_occurrence_heatmap_provinces <- tigris::geo_join(canada_provinces_geojson, native_occurrence_heatmap_provinces,  
-                                                              by_sp = "name", by_df = "province")
-    } else {
+     } else {
       # map by ecoregion
       if(input$inTotalOrEndemic == "Map Native CWRs") { # map natives
         native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
@@ -171,8 +168,6 @@ shinyServer(function(input, output, session){
           group_by(ECO_NAME) %>%
           mutate(variable = sum(is_endemic))
       } # end nested else, endemics
-      
-      native_occurrence_sf_ecoregions <- tigris::geo_join(canada_ecoregions_geojson, native_occurrence_heatmap_ecoregion, by = "ECO_NAME")
     } # end else, ecoregions
   })
     
