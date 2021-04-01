@@ -48,7 +48,8 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                     choices = c("Provinces", "Ecoregions"))
       ), # end sidebarPanel
       mainPanel(
-        plotOutput("choroplethPlot")
+        plotOutput("choroplethPlot"),
+        tableOutput("nativeRangeTable")
       ) # end mainPanel
     ), # end tabPanel "CWR native ranges"
     
