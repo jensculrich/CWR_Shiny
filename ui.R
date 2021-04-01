@@ -33,67 +33,71 @@ ecoregion_gap_table <- ecoregion_gap_table[order(ecoregion_gap_table$crop),]
 
 
 ui <- fluidPage(theme = shinytheme("yeti"),
-  navbarPage("Inventory of Canadian Crop Wild Relatives (CWRs) in Botanic Gardens",
-    
-    tabPanel("About Crop Wild Relatives"
-    ), # end tabPanel "About Crop Wild Relatives"
-    
-    tabPanel("Explore CWR native ranges",
-      mainPanel(
-        plotOutput("choroplethPlot")
-      )
-    ), # end tabPanel "CWR native ranges"
-    
-    # update so that select input start is empty         
-    tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis",
-        sidebarPanel(
-          
-          # update underlying data frame with categories to facilitate interaction (e.g. fruit, vege, nut, tree)
-          # add selectInput here
-          # user chooses a crop of interest
-          selectInput("inSelectedCrop", "Select a Crop", 
-                      choices = province_gap_table$crop),
-          # user chooses a CWR (filtered to match the selected crop)
-          # update this so that user can choose a CWR without first selecting crop
-          selectInput("inSelectedCWR", "Select a Crop Wild Relative", 
-                      choices = province_gap_table$species),
-          # user chooses to view map with ecoregion or province boundaries displayed
-          selectInput("inProvincesOrEcoregions", "Choose a Geographic Display*",
-                      choices = c("Provinces", "Ecoregions"),
-          # could add a * noting that province is a subset of ecoregion (because ecoregion requires finer lat/long of origin)
-          ), # end selectInput 
-          "*note: a larger proportion of accessions are associated with coarser scale 
+                navbarPage("Inventory of Canadian Crop Wild Relatives (CWRs) in Botanic Gardens",
+                           
+                           tabPanel("About Crop Wild Relatives",
+                                    
+                                    mainPanel(
+                                      includeMarkdown("www/about.md"),
+                                      img(src = "saskatoon_berry.png", height = 200, width = 300)
+                                    )     
+                                    
+                                    
+                                    
+                           ), # end tabPanel "About Crop Wild Relatives"
+                           
+                           tabPanel("Explore CWR native ranges",
+                                    mainPanel(
+                                      plotOutput("choroplethPlot")
+                                    )
+                           ), # end tabPanel "CWR native ranges"
+                           
+                           # update so that select input start is empty         
+                           tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis",
+                                    sidebarPanel(
+                                      
+                                      # update underlying data frame with categories to facilitate interaction (e.g. fruit, vege, nut, tree)
+                                      # add selectInput here
+                                      # user chooses a group of interest
+                                      selectInput("inSelectedGroup", "Select a group", 
+                                                  choices = province_gap_table$group),
+                                      # user chooses a crop of interest
+                                      selectInput("inSelectedCrop", "Select a Crop", 
+                                                  choices = province_gap_table$crop),
+                                      # user chooses a CWR (filtered to match the selected crop)
+                                      # update this so that user can choose a CWR without first selecting crop
+                                      selectInput("inSelectedCWR", "Select a Crop Wild Relative", 
+                                                  choices = province_gap_table$species),
+                                      # user chooses to view map with ecoregion or province boundaries displayed
+                                      selectInput("inProvincesOrEcoregions", "Choose a Geographic Display*",
+                                                  choices = c("Provinces", "Ecoregions"),
+                                                  # could add a * noting that province is a subset of ecoregion (because ecoregion requires finer lat/long of origin)
+                                      ), # end selectInput 
+                                      "*note: a larger proportion of accessions are associated with coarser scale 
           province versus finer scale ecoregion geographic origin information"
-        ), # end sidebarPanel
-        
-        mainPanel(
-          # plot the geographic range and gaps
-          plotOutput("gapPlot"),
-          # provide summary data for the CWR
-          tableOutput("gapTable")
-          # could also add a picture of the CWR
-        ) # end mainPanel
-      
-    ), # end tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")
-
-    tabPanel("Acknowledgements",
-             mainPanel("CWR collection data was contributed by: University of British
+                                    ), # end sidebarPanel
+                                    
+                                    mainPanel(
+                                      # plot the geographic range and gaps
+                                      plotOutput("gapPlot"),
+                                      # provide summary data for the CWR
+                                      tableOutput("gapTable")
+                                      # could also add a picture of the CWR
+                                    ) # end mainPanel
+                                    
+                           ), # end tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")
+                           
+                           tabPanel("Acknowledgements",
+                                    mainPanel("CWR collection data was contributed by: University of British
                        Columbia Botanic Garden (Vancouver, BC), Montreal Botanic Garden (Montreal, QC), 
                        University of Guelph Arboretum (Guelph, ON), Royal Botanic 
                        Garden (_, ON), etc...",
-                       "Guidance and advice was provided by: Tara Moreau (UBC Botanic Garden),
+                                              "Guidance and advice was provided by: Tara Moreau (UBC Botanic Garden),
                        Colin, Abby, Axel, Claire, Angela, etc.",
-                       "Developed by ..."
-             ) # mainPanel
-    ) # tabPanel "Acknowledgements"
-    
-  ) # navbarPage
+                                              "Developed by ..."
+                                    ) # mainPanel
+                           ) # tabPanel "Acknowledgements"
+                           
+                ) # navbarPage
 ) # ui
-
-
-
-
-
-
-
 
