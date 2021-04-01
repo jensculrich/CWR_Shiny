@@ -83,8 +83,11 @@ shinyServer(function(input, output, session){
         } # end nested else, endemics
       
       # join plot data with the spatial data frame necessary for projecting the plot  
-      native_occurrence_heatmap_provinces <- tigris::geo_join(canada_provinces_geojson, native_occurrence_heatmap_provinces,  
-                                                              by_sp = "name", by_df = "province")
+      native_occurrence_sf_provinces <- tigris::geo_join(canada_provinces_geojson, native_occurrence_heatmap_provinces,  
+                                                              by_df = "province", by_sp = "name")
+      native_occurrence_sf_provinces <- native_occurrence_sf_provinces %>%
+        rename("region" = "name")
+      
     } else {
     # map by ecoregion
     if(input$inTotalOrEndemic == "Map Native CWRs") { # map natives
@@ -95,7 +98,7 @@ shinyServer(function(input, output, session){
         group_by(ECO_NAME) %>%
         # tally the number of species
         add_tally() %>%
-        rename("variable" = "n")
+        rename("variable" = "n") 
     } else{ # map endemics
       native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
         # identify endemic species per ecoregion
@@ -111,7 +114,11 @@ shinyServer(function(input, output, session){
         mutate(variable = sum(is_endemic))
       } # end nested else, endemics
       
-      native_occurrence_sf_ecoregions <- tigris::geo_join(canada_ecoregions_geojson, native_occurrence_heatmap_ecoregion, by = "ECO_NAME")
+      native_occurrence_sf_ecoregions <- tigris::geo_join(canada_ecoregions_geojson, native_occurrence_heatmap_ecoregion, 
+                                                          by_sp = "ECO_NAME", by_df = "ECO_NAME")
+      native_occurrence_sf_ecoregions <- native_occurrence_sf_ecoregions %>%
+        rename("region" = "ECO_NAME")
+      
     } # end else, ecoregions
     
   }) # end reactive plot data
@@ -174,20 +181,45 @@ shinyServer(function(input, output, session){
     
   # native range tab outputs: plot and table
   
-  output$choroplethPlot <- renderPlot({
+  output$choroplethPlot <- renderLeaflet({
+      
+      # get data (will be ecoregoin or province, total native or just endemic CWR)
+      mydat <- plotDataNativeRanges()    
+      
+      # Create a color palette for the map:
+      mypalette <- colorNumeric( palette="YlOrBr", domain=mydat$variable, na.color="transparent")
+      mypalette(c(45,43))
+      
+      # Prepare the text for tooltips:
+      mytext <- paste(
+        "Region: ", mydat$region,"<br/>", 
+        "CWRs: ", mydat$variable, "<br/>", 
+        sep="") %>%
+        lapply(htmltools::HTML)
+      
+      # Basic choropleth with leaflet?
+      leaflet(plotDataNativeRanges()) %>% 
+        addTiles()  %>% 
+        setView( lat=55, lng=-90 , zoom=3) %>%
+        addPolygons(fillOpacity = 0.5, 
+                    smoothFactor = 0.5, 
+                    color = ~colorNumeric("YlOrBr", variable)(variable),
+                    label = mytext) %>%
+        addLegend( pal=mypalette, values=~variable, opacity=0.9, title = "CWRs", position = "bottomleft" )
+      
     
-      # use ggplot to map the native range and conserved accessions  
-      ggplot(plotDataNativeRanges()) +
-        geom_sf(aes(fill = variable),
-                color = "gray60", size = 0.1) +
-        coord_sf(crs = crs_string) +
-        scale_fill_distiller(palette = "Spectral") +
-        theme_map() +
-        ggtitle("") +
-        theme(panel.grid.major = element_line(color = "white"),
-              plot.title = element_text(color="black",
-                                        size=10, face="bold.italic", hjust = 0.5),
-              legend.text = element_text(size=10))
+    # use ggplot to map the native range and conserved accessions  
+      #ggplot(plotDataNativeRanges()) +
+       # geom_sf(aes(fill = variable),
+        #        color = "gray60", size = 0.1) +
+        #coord_sf(crs = crs_string) +
+        #scale_fill_distiller(palette = "Spectral") +
+        #theme_map() +
+        #ggtitle("") +
+        #theme(panel.grid.major = element_line(color = "white"),
+        #      plot.title = element_text(color="black",
+        #                                size=10, face="bold.italic", hjust = 0.5),
+        #      legend.text = element_text(size=10))
     
   }) # end renderPlot
   

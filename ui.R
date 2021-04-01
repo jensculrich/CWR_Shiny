@@ -21,6 +21,8 @@ library(ggplot2) # plotting
 library(raster) 
 library(viridis) # for colour schemes
 library(tigris) # for joining spatial data with data frame classes
+library(leaflet) # testing using this for mapping
+library(htmltools) # testing using for mapping
 
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
@@ -48,7 +50,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                     choices = c("Provinces", "Ecoregions"))
       ), # end sidebarPanel
       mainPanel(
-        plotOutput("choroplethPlot"),
+        leafletOutput("choroplethPlot"),
         tableOutput("nativeRangeTable")
       ) # end mainPanel
     ), # end tabPanel "CWR native ranges"
