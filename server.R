@@ -45,35 +45,86 @@ shinyServer(function(input, output, session){
 #  NATIVE RANGE  #  
 ##################
   
+  plotDataNativeRanges <- reactive({
+    if(input$inNativeProvincesOrEcoregions == "Provinces"){
+      if(input$inTotalOrEndemic == "natives") {
+        native_occurrence_heatmap_provinces <- province_gap_table %>%
+          # filter for garden = NA
+          filter(is.na(garden)) %>%
+          # group by province
+          group_by(province) %>%
+          # tally the number of species
+          add_tally() %>%
+          rename("variable" = "n")
+        } else{
+          native_occurrence_heatmap_provinces <- province_gap_table %>%
+          # filter for garden = NA
+          filter(is.na(garden)) %>%
+          # identify endemic species per province
+          # species that occur in only one province
+          group_by(species) %>%
+          # if group is only one row, endemic = 1, else endemic = 0
+          add_tally() %>%
+          rename("native_provinces_for_species" = "n") %>%
+          mutate(is_endemic = ifelse(
+            native_provinces_for_species == 1, 1, 0)) %>%
+          ungroup() %>%
+          group_by(province) %>%
+          mutate(variable = sum(is_endemic))
+        } # end  nested else
+      
+      # join plot data with the spatial data frame necessary for projecting the plot  
+      native_occurrence_heatmap_provinces <- tigris::geo_join(canada_provinces_geojson, native_occurrence_heatmap_provinces,  
+                                                              by_sp = "name", by_df = "province")
+    } else {
+    # by ecoregion
+    if(input$inTotalOrEndemic == "natives") {
+      native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
+        # filter for garden = NA
+        filter(is.na(garden)) %>%
+        # group by province
+        group_by(ECO_NAME) %>%
+        # tally the number of species
+        add_tally() %>%
+        rename("variable" = "n")
+    } else{
+      native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
+        # identify endemic species per province
+        # species that occur in only one province
+        group_by(species) %>%
+        # if group is only one row, endemic = 1, else endemic = 0
+        add_tally() %>%
+        rename("native_ecoregions_for_species" = "n") %>%
+        mutate(is_endemic = ifelse(
+          native_ecoregions_for_species == 1, 1, 0)) %>%
+        ungroup() %>%
+        group_by(ECO_NAME) %>%
+        mutate(variable = sum(is_endemic))
+      } # end nested else
+      
+      native_occurrence_sf_ecoregions <- tigris::geo_join(canada_ecoregions_geojson, native_occurrence_heatmap_ecoregion, by = "ECO_NAME")
+    } # end else
+    
+  }) # end reactive plot data
+  
   # want to have options for total CWRs, endemic CWRs, option to select a category
   # option to select by province or ecoregion
+  
+  
   output$choroplethPlot <- renderPlot({
     
-    test <- province_gap_table %>%
-      # filter for garden = NA
-      filter(is.na(garden)) %>%
-      # group by province
-      group_by(province) %>%
-      # tally the number of species
-      add_tally()
-      
-    # join plot data with the spatial data frame necessary for projecting the plot  
-    testProvinceData <- tigris::geo_join(canada_provinces_geojson, test,  
-                     by_sp = "name", by_df = "province")
-    
-    # use ggplot to map the native range and conserved accessions  
-    ggplot(testProvinceData) +
-      geom_sf(aes(fill = n),
-              color = "gray60", size = 0.1) +
-      coord_sf(crs = crs_string) +
-      scale_fill_distiller(palette = "Spectral") +
-      theme_map() +
-      ggtitle("") +
-      theme(panel.grid.major = element_line(color = "white"),
-            plot.title = element_text(color="black",
-                                      size=10, face="bold.italic", hjust = 0.5),
-            legend.text = element_text(size=10))
-    
+      # use ggplot to map the native range and conserved accessions  
+      ggplot(plotDataNativeRanges()) +
+        geom_sf(aes(fill = variable),
+                color = "gray60", size = 0.1) +
+        coord_sf(crs = crs_string) +
+        scale_fill_distiller(palette = "Spectral") +
+        theme_map() +
+        ggtitle("") +
+        theme(panel.grid.major = element_line(color = "white"),
+              plot.title = element_text(color="black",
+                                        size=10, face="bold.italic", hjust = 0.5),
+              legend.text = element_text(size=10))
   }) # end renderPlot
 
   
@@ -178,9 +229,9 @@ shinyServer(function(input, output, session){
         # join plot data with the spatial data frame necessary for projecting the plot      
         tigris::geo_join(canada_ecoregions_geojson, ecoregionPlotData, by = "ECO_NAME")
     
-    } # else
+    } # end else
     
-  }) # reactive
+  }) # end reactive
   
   # tableData() is a reactive function that filters the gap table to provide 
   # necessary statistics for a summary table (i.e. native range, coverage of native range, total accessions)
