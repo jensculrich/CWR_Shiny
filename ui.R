@@ -54,12 +54,12 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                     sidebarPanel(
                                       # input, what would you like to do?
                                       selectInput("inTotalOrEndemic", "What would you like to do?",
-                                                  choices = c("Map Native CWRs", "Map Endemic CWRs")),
+                                                  choices = c("Identify All Native CWRs", "Identify Endemic CWRs")),
                                       # user chooses to view map with ecoregion or province boundaries displayed
                                       selectInput("inNativeProvincesOrEcoregions", "Choose a Geographic Display*",
                                                   choices = c("Provinces", "Ecoregions")),
                                       # want to update this so it's dependnet on users choice of provinces v. ecoregions
-                                      selectInput("inRegion", "Filter CWR list by a region:", 
+                                      selectInput("inRegion", "Filter CWR List by a Region:", 
                                                   choices = province_gap_table$province)
                                     ), # end sidebarPanel
                                     mainPanel(

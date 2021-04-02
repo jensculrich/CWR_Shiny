@@ -1,5 +1,4 @@
 # big things to update: 
-# 1 a native distribution tab (possibly display heatmaps for all crop wild relatives or major groups?)
 # 3 add figure legend, notes for interpretation
 # 4 add crop categories and re-upload and add as a selctInput (make it so that you don't necessarily HAVE to choose category)
 # 5 add individual geo points to the map (does it make sense if some are only for province?)
@@ -69,13 +68,22 @@ shinyServer(function(input, output, session){
     event <- input$choroplethPlot_shape_click
     updateSelectInput(session, inputId = "inRegion", selected = event$id)
 
-    # continue with updates so that the table below filters based on the users click/choice
+    # update so that region options are provinces if looking at the province map/default
+    # but shift to ecoregions if the user selects ecoregions
+    #updateSelectInput(session, "inRegion",
+    #                  label = paste("Select map style"),
+    #                  if(input$inNativeProvincesOrEcoregions == "Provinces"){
+    #                    choices = province_gap_table$province
+    #                  } else {
+    #                    choices = ecoregion_gap_table$ECO_NAME
+    #                  }
+    #) # updateSelectInput
   }) 
   
   
   plotDataNativeRanges <- reactive({
     if(input$inNativeProvincesOrEcoregions == "Provinces"){
-      if(input$inTotalOrEndemic == "Map Native CWRs") {
+      if(input$inTotalOrEndemic == "Identify All Native CWRs") {
         native_occurrence_heatmap_provinces <- province_gap_table %>%
           # filter for garden = NA
           filter(is.na(garden)) %>%
@@ -109,7 +117,7 @@ shinyServer(function(input, output, session){
       
     } else {
     # map by ecoregion
-    if(input$inTotalOrEndemic == "Map Native CWRs") { # map natives
+    if(input$inTotalOrEndemic == "Identify All Native CWRs") { # map natives
       native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
         # filter for garden = NA
         filter(is.na(garden)) %>%
@@ -145,15 +153,18 @@ shinyServer(function(input, output, session){
   # want to filter this table when you click on a province 
   tableDataNativeRanges <- reactive({
     if(input$inNativeProvincesOrEcoregions == "Provinces"){
-      if(input$inTotalOrEndemic == "Map Native CWRs") {
+      if(input$inTotalOrEndemic == "Identify All Native CWRs") {
         native_occurrence_heatmap_provinces <- province_gap_table %>%
+          # filter the table to the selected region
+          filter(province == input$inRegion) %>%
           # filter for garden = NA
           filter(is.na(garden)) %>%
           # group by province
           group_by(province) %>%
           # tally the number of species
           add_tally() %>%
-          rename("variable" = "n")
+          dplyr::select(province, crop, species, group, n) %>%
+          rename("total CWRs in province" = "n") 
       } else{
         native_occurrence_heatmap_provinces <- province_gap_table %>%
           # filter for garden = NA
@@ -168,12 +179,22 @@ shinyServer(function(input, output, session){
             native_provinces_for_species == 1, 1, 0)) %>%
           ungroup() %>%
           group_by(province) %>%
-          mutate(variable = sum(is_endemic))
+          mutate(variable = sum(is_endemic)) %>%
+          
+          # filter the table to the selected region
+          filter(province == input$inRegion) %>%
+          filter(native_provinces_for_species == 1) %>%
+          
+          dplyr::select(province, group, crop, species, variable) %>%
+          rename("endemic CWRs in province" = "variable")
       } # end nested else, endemics
+      
      } else {
       # map by ecoregion
-      if(input$inTotalOrEndemic == "Map Native CWRs") { # map natives
+      if(input$inTotalOrEndemic == "Identify All Native CWRs") { # map natives
         native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
+          # filter the table to the selected region
+          filter(ECO_NAME == input$inRegion) %>%
           # filter for garden = NA
           filter(is.na(garden)) %>%
           # group by ecoregion
@@ -181,8 +202,14 @@ shinyServer(function(input, output, session){
           # tally the number of species
           add_tally() %>%
           rename("variable" = "n")
+        
+          dplyr::select(ECO_NAME, group, crop, species, variable) %>%
+          rename("total CWRs in ecoregion" = "variable")
+
       } else{ # map endemics
         native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
+          # filter the table to the selected region
+          filter(ECO_NAME == input$inRegion) %>%
           # identify endemic species per ecoregion
           # species that occur in only one ecoregion
           group_by(species) %>%
@@ -192,8 +219,15 @@ shinyServer(function(input, output, session){
           mutate(is_endemic = ifelse(
             native_ecoregions_for_species == 1, 1, 0)) %>%
           ungroup() %>%
-          group_by(ECO_NAME) %>%
-          mutate(variable = sum(is_endemic))
+          group_by(ECO_NAME) %>% 
+          mutate(variable = sum(is_endemic)) %>%
+        
+          # filter the table to the selected region
+          filter(ECO_NAME == input$inRegion) %>%
+          filter(native_ecoregions_for_species == 1) %>%
+          
+          dplyr::select(ECO_NAME, group, crop, species, variable) %>%
+          rename("endemic CWRs in ecoregion" = "variable")
       } # end nested else, endemics
     } # end else, ecoregions
   })
@@ -226,20 +260,6 @@ shinyServer(function(input, output, session){
                     label = mytext,
                     layerId = ~region) %>%
         addLegend( pal=mypalette, values=~variable, opacity=0.9, title = "CWRs", position = "bottomleft" )
-      
-    # Planning to cut this all out
-    # use ggplot to map the native range and conserved accessions  
-      #ggplot(plotDataNativeRanges()) +
-       # geom_sf(aes(fill = variable),
-        #        color = "gray60", size = 0.1) +
-        #coord_sf(crs = crs_string) +
-        #scale_fill_distiller(palette = "Spectral") +
-        #theme_map() +
-        #ggtitle("") +
-        #theme(panel.grid.major = element_line(color = "white"),
-        #      plot.title = element_text(color="black",
-        #                                size=10, face="bold.italic", hjust = 0.5),
-        #      legend.text = element_text(size=10))
     
   }) # end renderPlot
   
