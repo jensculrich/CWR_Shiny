@@ -49,9 +49,20 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                            ), # end tabPanel "About Crop Wild Relatives"
                            
                            tabPanel("Explore CWR native ranges",
+                                    sidebarPanel(
+                                      # input, what would you like to do?
+                                      selectInput("inTotalOrEndemic", "What would you like to do?",
+                                                  choices = c("Map Native CWRs", "Map Endemic CWRs")),
+                                      # user chooses to view map with ecoregion or province boundaries displayed
+                                      selectInput("inNativeProvincesOrEcoregions", "Choose a Geographic Display*",
+                                                  choices = c("Provinces", "Ecoregions")),
+                                      selectInput("inRegion", "Filter CWR list by a region:", 
+                                                  choices = province_gap_table$province)
+                                    ), # end sidebarPanel
                                     mainPanel(
-                                      plotOutput("choroplethPlot")
-                                    )
+                                      leafletOutput("choroplethPlot"),
+                                      tableOutput("nativeRangeTable")
+                                    ) # end mainPanel
                            ), # end tabPanel "CWR native ranges"
                            
                            # update so that select input start is empty         
