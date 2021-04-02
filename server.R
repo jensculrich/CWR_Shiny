@@ -54,6 +54,25 @@ shinyServer(function(input, output, session){
 # TO ADD: user choice to select Crop Category and Crop (but not individual CWRs)
 # and then filter the datasets (use an observe function)
   
+  # allow user to click on a polygon (region) and filter the CWR table to that region
+  observe({ 
+    
+    # user chooses the province as the selected input
+    y <- input$inRegion
+    
+    #make it work for ecoregions too
+    # if the user inputs a province do this, else DON't filter the gap table
+    # filter the full gap table based on user selection
+    filtered_CWRs <- filter(province_gap_table, province_gap_table$province == y)
+    
+    ## or give the user the ability to choose by hovering on the map
+    event <- input$choroplethPlot_shape_click
+    updateSelectInput(session, inputId = "inRegion", selected = event$id)
+
+    
+  }) 
+  
+  
   plotDataNativeRanges <- reactive({
     if(input$inNativeProvincesOrEcoregions == "Provinces"){
       if(input$inTotalOrEndemic == "Map Native CWRs") {
@@ -200,14 +219,15 @@ shinyServer(function(input, output, session){
       # Basic choropleth with leaflet?
       leaflet(plotDataNativeRanges()) %>% 
         addTiles()  %>% 
-        setView( lat=55, lng=-90 , zoom=3) %>%
+        setView( lat=60, lng=-98 , zoom=3) %>%
         addPolygons(fillOpacity = 0.5, 
                     smoothFactor = 0.5, 
                     color = ~colorNumeric("YlOrBr", variable)(variable),
-                    label = mytext) %>%
+                    label = mytext,
+                    layerId = ~region) %>%
         addLegend( pal=mypalette, values=~variable, opacity=0.9, title = "CWRs", position = "bottomleft" )
       
-    
+    # Planning to cut this all out
     # use ggplot to map the native range and conserved accessions  
       #ggplot(plotDataNativeRanges()) +
        # geom_sf(aes(fill = variable),

@@ -47,7 +47,9 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                     choices = c("Map Native CWRs", "Map Endemic CWRs")),
         # user chooses to view map with ecoregion or province boundaries displayed
         selectInput("inNativeProvincesOrEcoregions", "Choose a Geographic Display*",
-                    choices = c("Provinces", "Ecoregions"))
+                    choices = c("Provinces", "Ecoregions")),
+        selectInput("inRegion", "Filter CWR list by a region:", 
+                    choices = province_gap_table$province)
       ), # end sidebarPanel
       mainPanel(
         leafletOutput("choroplethPlot"),
