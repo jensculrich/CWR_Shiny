@@ -23,12 +23,14 @@ library(ggplot2) # plotting
 library(raster) 
 library(viridis) # for colour schemes
 library(tigris) # for joining spatial data with data frame classes
+library(leaflet)
+library(htmltools)
 
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
-province_gap_table <- as_data_frame(read.csv("province_gap_table.csv"))
-ecoregion_gap_table <- as_data_frame(read.csv("ecoregion_gap_table.csv"))
+province_gap_table <- as_tibble(read.csv("province_gap_table.csv"))
+ecoregion_gap_table <- as_tibble(read.csv("ecoregion_gap_table.csv"))
 # order gap tables so that user choices are alphabetically organized
 province_gap_table <- province_gap_table[order(province_gap_table$crop),]
 ecoregion_gap_table <- ecoregion_gap_table[order(ecoregion_gap_table$crop),]
