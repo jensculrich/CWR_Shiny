@@ -69,7 +69,7 @@ shinyServer(function(input, output, session){
     event <- input$choroplethPlot_shape_click
     updateSelectInput(session, inputId = "inRegion", selected = event$id)
 
-    
+    # continue with updates so that the table below filters based on the users click/choice
   }) 
   
   
