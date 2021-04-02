@@ -56,28 +56,16 @@ shinyServer(function(input, output, session){
   # allow user to click on a polygon (region) and filter the CWR table to that region
   observe({ 
     
-    # user chooses the province as the selected input
-    y <- input$inRegion
-    
-    #make it work for ecoregions too
-    # if the user inputs a province do this, else DON't filter the gap table
-    # filter the full gap table based on user selection
-    filtered_CWRs <- filter(province_gap_table, province_gap_table$province == y)
-    
-    ## or give the user the ability to choose by hovering on the map
+    ## give the user the ability to choose by hovering on the map
     event <- input$choroplethPlot_shape_click
     updateSelectInput(session, inputId = "inRegion", selected = event$id)
-
-    # update so that region options are provinces if looking at the province map/default
-    # but shift to ecoregions if the user selects ecoregions
-    #updateSelectInput(session, "inRegion",
-    #                  label = paste("Select map style"),
-    #                  if(input$inNativeProvincesOrEcoregions == "Provinces"){
-    #                    choices = province_gap_table$province
-    #                  } else {
-    #                    choices = ecoregion_gap_table$ECO_NAME
-    #                  }
-    #) # updateSelectInput
+    
+    z <- input$inNativeProvincesOrEcoregions
+    if(z == "Ecoregions"){
+      updateSelectInput(session, "inRegion", 
+                        choices = ecoregion_gap_table$ECO_NAME,
+                        selected = NULL)
+    } 
   }) 
   
   
@@ -201,7 +189,7 @@ shinyServer(function(input, output, session){
           group_by(ECO_NAME) %>%
           # tally the number of species
           add_tally() %>%
-          rename("variable" = "n")
+          rename("variable" = "n") %>%
         
           dplyr::select(ECO_NAME, group, crop, species, variable) %>%
           rename("total CWRs in ecoregion" = "variable")
