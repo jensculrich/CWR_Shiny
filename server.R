@@ -14,6 +14,7 @@ canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
 province_gap_table <- as_data_frame(read.csv("province_gap_table.csv"))
 ecoregion_gap_table <- as_data_frame(read.csv("ecoregion_gap_table.csv"))
 
+
 # Define map projection
 crs_string = "+proj=lcc +lat_1=49 +lat_2=77 +lon_0=-91.52 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs"
 
@@ -36,7 +37,7 @@ theme_map <- function(base_size=9, base_family="") { # 3
     )
 }
 
-# write a function to handle no data input (rather than throwing an error I want to display a grey map)
+# edit geometry on gap tables so that the points can be spatially projected
 
 
 shinyServer(function(input, output, session){
@@ -45,36 +46,206 @@ shinyServer(function(input, output, session){
 #  NATIVE RANGE  #  
 ##################
   
-  # want to have options for total CWRs, endemic CWRs, option to select a category
-  # option to select by province or ecoregion
-  output$choroplethPlot <- renderPlot({
+# for native range tab,
+# user can input province or ecoregion consideration
+# and then generate a map and a table of native OR endemic CWRs by region focus
+# to do so, the server side needs to generate plot and table data
+# that's dependent on the users choices of geographic regions and variable of interest
+# TO ADD: user choice to select Crop Category and Crop (but not individual CWRs)
+# and then filter the datasets (use an observe function)
+  
+  # allow user to click on a polygon (region) and filter the CWR table to that region
+  observe({ 
     
-    test <- province_gap_table %>%
-      # filter for garden = NA
-      filter(is.na(garden)) %>%
-      # group by province
-      group_by(province) %>%
-      # tally the number of species
-      add_tally()
+    # user chooses the province as the selected input
+    y <- input$inRegion
+    
+    #make it work for ecoregions too
+    # if the user inputs a province do this, else DON't filter the gap table
+    # filter the full gap table based on user selection
+    filtered_CWRs <- filter(province_gap_table, province_gap_table$province == y)
+    
+    ## or give the user the ability to choose by hovering on the map
+    event <- input$choroplethPlot_shape_click
+    updateSelectInput(session, inputId = "inRegion", selected = event$id)
+
+    
+  }) 
+  
+  
+  plotDataNativeRanges <- reactive({
+    if(input$inNativeProvincesOrEcoregions == "Provinces"){
+      if(input$inTotalOrEndemic == "Map Native CWRs") {
+        native_occurrence_heatmap_provinces <- province_gap_table %>%
+          # filter for garden = NA
+          filter(is.na(garden)) %>%
+          # group by province
+          group_by(province) %>%
+          # tally the number of species
+          add_tally() %>%
+          rename("variable" = "n")
+        } else{
+          native_occurrence_heatmap_provinces <- province_gap_table %>%
+          # filter for garden = NA
+          filter(is.na(garden)) %>%
+          # identify endemic species per province
+          # species that occur in only one province
+          group_by(species) %>%
+          # if group is only one row, endemic = 1, else endemic = 0
+          add_tally() %>%
+          rename("native_provinces_for_species" = "n") %>%
+          mutate(is_endemic = ifelse(
+            native_provinces_for_species == 1, 1, 0)) %>%
+          ungroup() %>%
+          group_by(province) %>%
+          mutate(variable = sum(is_endemic))
+        } # end nested else, endemics
       
-    # join plot data with the spatial data frame necessary for projecting the plot  
-    testProvinceData <- tigris::geo_join(canada_provinces_geojson, test,  
-                     by_sp = "name", by_df = "province")
+      # join plot data with the spatial data frame necessary for projecting the plot  
+      native_occurrence_sf_provinces <- tigris::geo_join(canada_provinces_geojson, native_occurrence_heatmap_provinces,  
+                                                              by_df = "province", by_sp = "name")
+      native_occurrence_sf_provinces <- native_occurrence_sf_provinces %>%
+        rename("region" = "name")
+      
+    } else {
+    # map by ecoregion
+    if(input$inTotalOrEndemic == "Map Native CWRs") { # map natives
+      native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
+        # filter for garden = NA
+        filter(is.na(garden)) %>%
+        # group by ecoregion
+        group_by(ECO_NAME) %>%
+        # tally the number of species
+        add_tally() %>%
+        rename("variable" = "n") 
+    } else{ # map endemics
+      native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
+        # identify endemic species per ecoregion
+        # species that occur in only one ecoregion
+        group_by(species) %>%
+        # if group is only one row, endemic = 1, else endemic = 0
+        add_tally() %>%
+        rename("native_ecoregions_for_species" = "n") %>%
+        mutate(is_endemic = ifelse(
+          native_ecoregions_for_species == 1, 1, 0)) %>%
+        ungroup() %>%
+        group_by(ECO_NAME) %>%
+        mutate(variable = sum(is_endemic))
+      } # end nested else, endemics
+      
+      native_occurrence_sf_ecoregions <- tigris::geo_join(canada_ecoregions_geojson, native_occurrence_heatmap_ecoregion, 
+                                                          by_sp = "ECO_NAME", by_df = "ECO_NAME")
+      native_occurrence_sf_ecoregions <- native_occurrence_sf_ecoregions %>%
+        rename("region" = "ECO_NAME")
+      
+    } # end else, ecoregions
     
+  }) # end reactive plot data
+  
+  # want to filter this table when you click on a province 
+  tableDataNativeRanges <- reactive({
+    if(input$inNativeProvincesOrEcoregions == "Provinces"){
+      if(input$inTotalOrEndemic == "Map Native CWRs") {
+        native_occurrence_heatmap_provinces <- province_gap_table %>%
+          # filter for garden = NA
+          filter(is.na(garden)) %>%
+          # group by province
+          group_by(province) %>%
+          # tally the number of species
+          add_tally() %>%
+          rename("variable" = "n")
+      } else{
+        native_occurrence_heatmap_provinces <- province_gap_table %>%
+          # filter for garden = NA
+          filter(is.na(garden)) %>%
+          # identify endemic species per province
+          # species that occur in only one province
+          group_by(species) %>%
+          # if group is only one row, endemic = 1, else endemic = 0
+          add_tally() %>%
+          rename("native_provinces_for_species" = "n") %>%
+          mutate(is_endemic = ifelse(
+            native_provinces_for_species == 1, 1, 0)) %>%
+          ungroup() %>%
+          group_by(province) %>%
+          mutate(variable = sum(is_endemic))
+      } # end nested else, endemics
+     } else {
+      # map by ecoregion
+      if(input$inTotalOrEndemic == "Map Native CWRs") { # map natives
+        native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
+          # filter for garden = NA
+          filter(is.na(garden)) %>%
+          # group by ecoregion
+          group_by(ECO_NAME) %>%
+          # tally the number of species
+          add_tally() %>%
+          rename("variable" = "n")
+      } else{ # map endemics
+        native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
+          # identify endemic species per ecoregion
+          # species that occur in only one ecoregion
+          group_by(species) %>%
+          # if group is only one row, endemic = 1, else endemic = 0
+          add_tally() %>%
+          rename("native_ecoregions_for_species" = "n") %>%
+          mutate(is_endemic = ifelse(
+            native_ecoregions_for_species == 1, 1, 0)) %>%
+          ungroup() %>%
+          group_by(ECO_NAME) %>%
+          mutate(variable = sum(is_endemic))
+      } # end nested else, endemics
+    } # end else, ecoregions
+  })
+    
+  # native range tab outputs: plot and table
+  
+  output$choroplethPlot <- renderLeaflet({
+      
+      # get data (will be ecoregoin or province, total native or just endemic CWR)
+      mydat <- plotDataNativeRanges()    
+      
+      # Create a color palette for the map:
+      mypalette <- colorNumeric( palette="YlOrBr", domain=mydat$variable, na.color="transparent")
+      mypalette(c(45,43))
+      
+      # Prepare the text for tooltips:
+      mytext <- paste(
+        "Region: ", mydat$region,"<br/>", 
+        "CWRs: ", mydat$variable, "<br/>", 
+        sep="") %>%
+        lapply(htmltools::HTML)
+      
+      # Basic choropleth with leaflet?
+      leaflet(plotDataNativeRanges()) %>% 
+        addTiles()  %>% 
+        setView( lat=60, lng=-98 , zoom=3) %>%
+        addPolygons(fillOpacity = 0.5, 
+                    smoothFactor = 0.5, 
+                    color = ~colorNumeric("YlOrBr", variable)(variable),
+                    label = mytext,
+                    layerId = ~region) %>%
+        addLegend( pal=mypalette, values=~variable, opacity=0.9, title = "CWRs", position = "bottomleft" )
+      
+    # Planning to cut this all out
     # use ggplot to map the native range and conserved accessions  
-    ggplot(testProvinceData) +
-      geom_sf(aes(fill = n),
-              color = "gray60", size = 0.1) +
-      coord_sf(crs = crs_string) +
-      scale_fill_distiller(palette = "Spectral") +
-      theme_map() +
-      ggtitle("") +
-      theme(panel.grid.major = element_line(color = "white"),
-            plot.title = element_text(color="black",
-                                      size=10, face="bold.italic", hjust = 0.5),
-            legend.text = element_text(size=10))
+      #ggplot(plotDataNativeRanges()) +
+       # geom_sf(aes(fill = variable),
+        #        color = "gray60", size = 0.1) +
+        #coord_sf(crs = crs_string) +
+        #scale_fill_distiller(palette = "Spectral") +
+        #theme_map() +
+        #ggtitle("") +
+        #theme(panel.grid.major = element_line(color = "white"),
+        #      plot.title = element_text(color="black",
+        #                                size=10, face="bold.italic", hjust = 0.5),
+        #      legend.text = element_text(size=10))
     
   }) # end renderPlot
+  
+  output$nativeRangeTable <- renderTable({
+    tableDataNativeRanges()
+  }) # end renderTable
 
   
 ##################
@@ -178,9 +349,9 @@ shinyServer(function(input, output, session){
         # join plot data with the spatial data frame necessary for projecting the plot      
         tigris::geo_join(canada_ecoregions_geojson, ecoregionPlotData, by = "ECO_NAME")
     
-    } # else
+    } # end else
     
-  }) # reactive
+  }) # end reactive
   
   # tableData() is a reactive function that filters the gap table to provide 
   # necessary statistics for a summary table (i.e. native range, coverage of native range, total accessions)
