@@ -65,6 +65,10 @@ shinyServer(function(input, output, session){
       updateSelectInput(session, "inRegion", 
                         choices = ecoregion_gap_table$ECO_NAME,
                         selected = NULL)
+      
+    ## give the user the ability to choose by hovering on the map
+    event <- input$choroplethPlot_shape_click
+    updateSelectInput(session, inputId = "inRegion", selected = event$id)
     } 
   }) 
   
@@ -196,10 +200,10 @@ shinyServer(function(input, output, session){
 
       } else{ # map endemics
         native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
-          # filter the table to the selected region
-          filter(ECO_NAME == input$inRegion) %>%
+          # filter for garden = NA
+          filter(is.na(garden)) %>%
           # identify endemic species per ecoregion
-          # species that occur in only one ecoregion
+          # species that occur in only one ecoregino
           group_by(species) %>%
           # if group is only one row, endemic = 1, else endemic = 0
           add_tally() %>%
@@ -207,16 +211,16 @@ shinyServer(function(input, output, session){
           mutate(is_endemic = ifelse(
             native_ecoregions_for_species == 1, 1, 0)) %>%
           ungroup() %>%
-          group_by(ECO_NAME) %>% 
+          group_by(ECO_NAME) %>%
           mutate(variable = sum(is_endemic)) %>%
-        
+          
           # filter the table to the selected region
           filter(ECO_NAME == input$inRegion) %>%
           filter(native_ecoregions_for_species == 1) %>%
           
           dplyr::select(ECO_NAME, group, crop, species, variable) %>%
           rename("endemic CWRs in ecoregion" = "variable")
-      } # end nested else, endemics
+      } # ended nested endmic else
     } # end else, ecoregions
   })
     
