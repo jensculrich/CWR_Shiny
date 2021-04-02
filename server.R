@@ -254,23 +254,45 @@ shinyServer(function(input, output, session){
   
   # filter the data set for a CWR of interest
   observe({ 
-    # user chooses the crop as the selected input
-    x <- input$inSelectedCrop
+    #user chooses the group as the selected input
+    x <- input$inSelectedGroup
     
     # filter the full gap table based on user selection
-    filtered_CWRs <- filter(province_gap_table, province_gap_table$crop == x)
+    filtered_CWRs <- filter(province_gap_table, province_gap_table$group == x)
+    
+    
+    #filtered_CWRs <- filter(province_gap_table, province_gap_table$crop == x)
+    #filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$group),]
     
     # order filtered table so that user choices for CWR are alphabetically organized
     # to facilitate user choice
-    filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$species),]
+    filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$crop),]
     
+    updateSelectInput(session, "inSelectedCrop",
+                      label = paste("Select a Crop"),
+                      choices = filtered_CWRs$crop
+    ) # updateSelectInput
+    
+    
+    
+  }) # observe
+  
+  observe({
+    x <- input$inSelectedCrop
+    
+    filtered_CWRs <- filter(province_gap_table, province_gap_table$crop == x)
+    
+    filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$species),]    
     # update select input so that CWRs choices are the subset related to the specified Crop
     updateSelectInput(session, "inSelectedCWR",
                       label = paste("Select a Crop Wild Relative"),
                       choices = filtered_CWRs$species
     ) # updateSelectInput
     
-  }) # observe
+  }
+  
+  )
+  
   
   # plotData() is a reactive function that filters the gap table to provide 
   # necessary statistics for plotting (i.e. native range, coverage of native range, total accessions)
