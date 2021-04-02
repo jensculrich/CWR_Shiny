@@ -474,7 +474,8 @@ shinyServer(function(input, output, session){
       
       # validate allows us to share a prompt (rather than an error message until a CWR is chosen)
       shiny::validate(
-        need(input$inSelectedCrop, 'Select a crop to filter the list of crop wild relatives')
+        need(input$inSelectedCrop, 'Conduct a CWR Ex Situ Conservation Gap Analysis,
+             Begin by selecting a crop to view list of native crop wild relatives')
       )
       
       # use ggplot to map the native range and conserved accessions  

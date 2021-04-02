@@ -48,7 +48,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                     
                            ), # end tabPanel "About Crop Wild Relatives"
                            
-                           tabPanel("Explore CWR native ranges",
+                           tabPanel("Explore CWR native hotspots",
                                     sidebarPanel(
                                       # input, what would you like to do?
                                       selectInput("inTotalOrEndemic", "What would you like to do?",
@@ -67,7 +67,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                            ), # end tabPanel "CWR native ranges"
                            
                            # update so that select input start is empty         
-                           tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis",
+                           tabPanel("Explore CWR Conservation in Botanic Gardens",
                                     sidebarPanel(
                                       
                                       # update underlying data frame with categories to facilitate interaction (e.g. fruit, vege, nut, tree)
