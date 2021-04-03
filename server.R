@@ -9,6 +9,7 @@
 # update link to "master list"
 # region options needs to sift back to provinces if you choose ecoregion, then switch back to province view
 # (right now it shifts to ecoregion but won't shift back if you update again)
+# change gap analysis map so that it's am imteractive leaflet (as in the native hotspot maps)
 
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
