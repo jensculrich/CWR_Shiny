@@ -99,6 +99,7 @@ shinyServer(function(input, output, session){
           ungroup() %>%
           group_by(province) %>%
           mutate(variable = sum(is_endemic))
+          
         } # end nested else, endemics
       
       # join plot data with the spatial data frame necessary for projecting the plot  
@@ -120,6 +121,8 @@ shinyServer(function(input, output, session){
         rename("variable" = "n") 
     } else{ # map endemics
       native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
+        # filter for garden = NA
+        filter(is.na(garden)) %>%
         # identify endemic species per ecoregion
         # species that occur in only one ecoregion
         group_by(species) %>%
