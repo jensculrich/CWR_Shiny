@@ -6,6 +6,9 @@
 # overlay garden collection coordinate points on gap analysis tab
 # acknowledgements tab: (list of gardens that contributed data (maybe a map as well), Tara, Colin, Abby, Axel and Berry Bunch, Claire, and Angela )
 # could add associated wiki picture of crops? 
+# update link to "master list"
+# region options needs to sift back to provinces if you choose ecoregion, then switch back to province view
+# (right now it shifts to ecoregion but won't shift back if you update again)
 
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
