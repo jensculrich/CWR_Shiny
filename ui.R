@@ -1,15 +1,11 @@
-# add another table panel with interactive native range heat map 
-# and endemic heat map (to promote further in situ conservation)
+###########################
+# ui.R for CWR Shiny App  #
+###########################
 
-# add an about tab, with brief description
-# and summary statistics?
-# and garden contributors/acknowledgments?
-
-#Hi
-
+###########################
+# load required R libraries
 library(shiny)
 library(shinythemes)
-
 library(sf) # the base package manipulating shapes
 library(rgeos)
 library(rgdal) # geo data abstraction library
@@ -26,11 +22,24 @@ library(tigris) # for joining spatial data with data frame classes
 library(leaflet)
 library(htmltools)
 
-# Load required data and shapefiles for building reactive maps and data tables
+##########################################
+# Load required data and shapefiles for  #
+# building reactive maps and data tables #
+##########################################
+
+# canada_ecoregions_geojson defines ecoregions in Canada, clipped to the national border of Canada
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
+# canada_provinces_geojson defines province and territory boundaries
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
+
+# province_gap_table includes all garden accessions from our surveyed gardens
+# with lat/long when applicable (needs to be formatted here or before uploading)
+# The table has a row for each native province that a species is native to with garden = NA
+# along with a row for each garden accession from each native province.
+# ecoregion_gap_table has similar setup
 province_gap_table <- as_tibble(read.csv("province_gap_table.csv"))
 ecoregion_gap_table <- as_tibble(read.csv("ecoregion_gap_table.csv"))
+
 # order gap tables so that user choices are alphabetically organized
 province_gap_table <- province_gap_table[order(province_gap_table$crop),]
 ecoregion_gap_table <- ecoregion_gap_table[order(ecoregion_gap_table$crop),]
@@ -39,6 +48,8 @@ ecoregion_gap_table <- ecoregion_gap_table[order(ecoregion_gap_table$crop),]
 ui <- fluidPage(theme = shinytheme("yeti"),
                 navbarPage("Inventory of Canadian Crop Wild Relatives (CWRs) in Botanic Gardens",
                            
+                           # an introduction to crop wild relatives and the unique
+                           # potential of botanic gardens for promoting their conservation
                            tabPanel("About Crop Wild Relatives",
                                     
                                     mainPanel(
