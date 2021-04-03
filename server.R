@@ -1,11 +1,11 @@
 # big things to update: 
-# 3 add figure legend, notes for interpretation
-# 4 add crop categories and re-upload and add as a selctInput (make it so that you don't necessarily HAVE to choose category)
-# 5 add individual geo points to the map (does it make sense if some are only for province?)
-# 6 hover over province shows number of accessions from province.
-# 7 add acknowledgements (list of gardens that contributed data, Tara, Colin, Abby, Axel)
-# 8 add the about tab: what are CWRs, why conserve across range, role of botanic gardens.
-# 9 add associated wiki picture of genus
+
+# allow user to choose inputs without having to select a previous input, e.g. can choose Crop w/out first specifying Crop group
+# update figure legends/any interpretation guides
+# update crop categories, maybe add crop categories to native ranges tab
+# overlay garden collection coordinate points on gap analysis tab
+# acknowledgements tab: (list of gardens that contributed data (maybe a map as well), Tara, Colin, Abby, Axel and Berry Bunch, Claire, and Angela )
+# could add associated wiki picture of crops? 
 
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
