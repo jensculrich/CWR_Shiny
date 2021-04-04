@@ -11,6 +11,10 @@
 # (right now it shifts to ecoregion but won't shift back if you update again)
 # change gap analysis map so that it's am imteractive leaflet (as in the native hotspot maps)
 
+###############################
+# server.R for CWR Shiny App  #
+###############################
+
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
@@ -162,7 +166,7 @@ shinyServer(function(input, output, session){
           group_by(province) %>%
           # tally the number of species
           add_tally() %>%
-          dplyr::select(province, crop, species, group, n) %>%
+          dplyr::select(province, crop, species, Group, n) %>%
           rename("total CWRs in province" = "n") 
       } else{
         native_occurrence_heatmap_provinces <- province_gap_table %>%
@@ -184,7 +188,7 @@ shinyServer(function(input, output, session){
           filter(province == input$inRegion) %>%
           filter(native_provinces_for_species == 1) %>%
           
-          dplyr::select(province, group, crop, species, variable) %>%
+          dplyr::select(province, Group, crop, species, variable) %>%
           rename("endemic CWRs in province" = "variable")
       } # end nested else, endemics
       
@@ -202,7 +206,7 @@ shinyServer(function(input, output, session){
           add_tally() %>%
           rename("variable" = "n") %>%
         
-          dplyr::select(ECO_NAME, group, crop, species, variable) %>%
+          dplyr::select(ECO_NAME, Group, crop, species, variable) %>%
           rename("total CWRs in ecoregion" = "variable")
 
       } else{ # map endemics
@@ -225,7 +229,7 @@ shinyServer(function(input, output, session){
           filter(ECO_NAME == input$inRegion) %>%
           filter(native_ecoregions_for_species == 1) %>%
           
-          dplyr::select(ECO_NAME, group, crop, species, variable) %>%
+          dplyr::select(ECO_NAME, Group, crop, species, variable) %>%
           rename("endemic CWRs in ecoregion" = "variable")
       } # ended nested endmic else
     } # end else, ecoregions
@@ -277,11 +281,11 @@ shinyServer(function(input, output, session){
     x <- input$inSelectedGroup
     
     # filter the full gap table based on user selection
-    filtered_CWRs <- filter(province_gap_table, province_gap_table$group == x)
+    filtered_CWRs <- filter(province_gap_table, province_gap_table$Group == x)
     
     
     #filtered_CWRs <- filter(province_gap_table, province_gap_table$crop == x)
-    #filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$group),]
+    #filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$Group),]
     
     # order filtered table so that user choices for CWR are alphabetically organized
     # to facilitate user choice

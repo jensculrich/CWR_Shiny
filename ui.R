@@ -61,7 +61,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                     
                            ), # end tabPanel "About Crop Wild Relatives"
                            
-                           tabPanel("Explore CWR native hotspots",
+                           tabPanel("Find native CWRs",
                                     sidebarPanel(
                                       # input, what would you like to do?
                                       selectInput("inTotalOrEndemic", "What would you like to do?",
@@ -87,7 +87,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                       # add selectInput here
                                       # user chooses a group of interest
                                       selectInput("inSelectedGroup", "Select a group", 
-                                                  choices = province_gap_table$group),
+                                                  choices = province_gap_table$Group),
                                       # user chooses a crop of interest
                                       selectInput("inSelectedCrop", "Select a Crop", 
                                                   choices = province_gap_table$crop),
