@@ -3,7 +3,9 @@
 ###########################
 
 ###########################
-# load required R libraries
+# LIBRARIES               #
+###########################
+
 library(shiny)
 library(shinythemes)
 library(sf) # the base package manipulating shapes
@@ -22,10 +24,12 @@ library(tigris) # for joining spatial data with data frame classes
 library(leaflet)
 library(htmltools)
 
-##########################################
-# Load required data and shapefiles for  #
-# building reactive maps and data tables #
-##########################################
+########################################
+# DATA WRANGLING AND SUPPORT FUNCTIONS #
+########################################
+
+# Load required data and shapefiles for  
+# building reactive maps and data tables 
 
 # canada_ecoregions_geojson defines ecoregions in Canada, clipped to the national border of Canada
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
@@ -44,6 +48,11 @@ ecoregion_gap_table <- as_tibble(read.csv("ecoregion_gap_table.csv"))
 province_gap_table <- province_gap_table[order(province_gap_table$crop),]
 ecoregion_gap_table <- ecoregion_gap_table[order(ecoregion_gap_table$crop),]
 
+###########
+# LOAD UI #
+###########
+
+# ui structure: one navbar page with 4 tab panels
 
 ui <- fluidPage(theme = shinytheme("yeti"),
                 navbarPage("Inventory of Canadian Crop Wild Relatives (CWRs) in Botanic Gardens",
@@ -51,13 +60,10 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                            # an introduction to crop wild relatives and the unique
                            # potential of botanic gardens for promoting their conservation
                            tabPanel("About Crop Wild Relatives",
-                                    
                                     mainPanel(
                                       includeMarkdown("www/about.md"),
                                       img(src = "saskatoon_berry.png", height = 200, width = 300)
                                     )     
-                                    
-                                    
                                     
                            ), # end tabPanel "About Crop Wild Relatives"
                            
