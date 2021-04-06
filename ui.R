@@ -120,7 +120,7 @@ ui <- fluidPage(theme = shinytheme("yeti"),
                                     
                            ), # end tabPanel("Conduct a CWR Ex Situ Conservation Gap Analysis")
                            
-                           tabPanel("Acknowledgements",
+                           tabPanel("Acknowledgements", # make another rmarkdown document here
                                     mainPanel("CWR collection data was contributed by: University of British
                        Columbia Botanic Garden (Vancouver, BC), Montreal Botanic Garden (Montreal, QC), 
                        University of Guelph Arboretum (Guelph, ON), Royal Botanic 
