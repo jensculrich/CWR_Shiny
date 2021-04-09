@@ -289,12 +289,8 @@ shinyServer(function(input, output, session){
     x <- input$inSelectedGroup
     
     # filter the full gap table based on user selection
-    filtered_CWRs <- filter(province_gap_table, province_gap_table$Group == x)
-    
-    
-    #filtered_CWRs <- filter(province_gap_table, province_gap_table$crop == x)
-    #filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$Group),]
-    
+   filtered_CWRs <- filter(province_gap_table, province_gap_table$Group == x)
+  
     # order filtered table so that user choices for CWR are alphabetically organized
     # to facilitate user choice
     filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$crop),]
@@ -302,7 +298,7 @@ shinyServer(function(input, output, session){
     updateSelectInput(session, "inSelectedCrop",
                       label = paste("Select a Crop"),
                       choices = filtered_CWRs$crop
-    ) # updateSelectInput
+   ) 
     
     
     
@@ -310,9 +306,9 @@ shinyServer(function(input, output, session){
   
   observe({
     x <- input$inSelectedCrop
-    
+
     filtered_CWRs <- filter(province_gap_table, province_gap_table$crop == x)
-    
+
     filtered_CWRs <- filtered_CWRs[order(filtered_CWRs$species),]    
     # update select input so that CWRs choices are the subset related to the specified Crop
     updateSelectInput(session, "inSelectedCWR",
@@ -320,9 +316,7 @@ shinyServer(function(input, output, session){
                       choices = filtered_CWRs$species
     ) # updateSelectInput
     
-  }
-  
-  )
+  })
   
   
   # plotData() is a reactive function that filters the gap table to provide 
@@ -505,8 +499,7 @@ shinyServer(function(input, output, session){
       
       # validate allows us to share a prompt (rather than an error message until a CWR is chosen)
       shiny::validate(
-        need(input$inSelectedCrop, 'Conduct a CWR Ex Situ Conservation Gap Analysis,
-             Begin by selecting a crop to view list of native crop wild relatives')
+        need(input$inSelectedCrop, "")
       )
       
       # use ggplot to map the native range and conserved accessions  
