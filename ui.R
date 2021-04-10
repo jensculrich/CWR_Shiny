@@ -84,10 +84,10 @@ ui <- fluidPage(
       
       sidebarMenu(
         menuItem("Home", tabName = "home", icon = icon("home")),
-        menuItem("What are CWR?", tabName = "about", icon = icon("seedling")),
-        menuItem("Find native CWR", tabName = "find", icon = icon("thumbtack")),
-        menuItem("Explore CWR", tabName = "explore", icon = icon("map marked alt")),
-        menuItem("Aknowledgements", tabName = "aknow", icon = icon("tasks"))
+        menuItem("What are CWRs?", tabName = "about", icon = icon("seedling")),
+        menuItem("Find Native CWRs", tabName = "find", icon = icon("thumbtack")),
+        menuItem("Conservation in Gardens", tabName = "explore", icon = icon("map marked alt")),
+        menuItem("Acknowledgements", tabName = "aknow", icon = icon("tasks"))
         
       )
       
