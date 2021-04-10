@@ -24,6 +24,7 @@ library(tigris) # for joining spatial data with data frame classes
 library(leaflet)
 library(htmltools)
 library(shinydashboard)
+library(DT)
 
 ########################################
 # DATA WRANGLING AND SUPPORT FUNCTIONS #
@@ -93,6 +94,7 @@ ui <- fluidPage(
     ),
     
     dashboardBody(
+      
       tabItems(
         # First tab content
         tabItem(tabName = "home",

@@ -276,8 +276,12 @@ shinyServer(function(input, output, session){
   
   output$nativeRangeTable <- renderTable({
     tableDataNativeRanges()
+  
   }) # end renderTable
 
+  
+ 
+  
   
 ##################
 #  GAP ANALYSIS  #  
@@ -522,7 +526,7 @@ shinyServer(function(input, output, session){
             size=10, face="bold.italic", hjust = 0.5),
             legend.text = element_text(size=10))
 
-    }) # end renderPlot
+    }) # end renderPlot renderDataTable
     
     # add gap table to the main panel using the reactive tableData() function
     output$gapTable <- renderTable({
