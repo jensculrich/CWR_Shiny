@@ -24,6 +24,7 @@ library(tigris) # for joining spatial data with data frame classes
 library(leaflet)
 library(htmltools)
 library(shinydashboard)
+library(DT)
 
 ########################################
 # DATA WRANGLING AND SUPPORT FUNCTIONS #
@@ -125,7 +126,7 @@ ui <- fluidPage(
                          ), # end sidebarPanel
                          mainPanel(
                            leafletOutput("choroplethPlot"),
-                           tableOutput("nativeRangeTable")
+                           dataTableOutput("nativeRangeTable")
                          ) # end mainPanel
                 ), # end tabPanel "CWR native ranges"
         
@@ -159,7 +160,7 @@ ui <- fluidPage(
                    # plot the geographic range and gaps
                    plotOutput("gapPlot"),
                    # provide summary data for the CWR
-                   tableOutput("gapTable")
+                   dataTableOutput("gapTable")
                    # could also add a picture of the CWR
                  ) # end mainPanel
                  
