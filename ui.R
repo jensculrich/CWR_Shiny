@@ -151,9 +151,8 @@ ui <- fluidPage(
                    selectInput("inProvincesOrEcoregions", "Choose a Geographic Display*",
                                choices = c("Provinces", "Ecoregions")
                                # could add a * noting that province is a subset of ecoregion (because ecoregion requires finer lat/long of origin)
-                   ), # end selectInput 
-                   "*note: a larger proportion of accessions are associated with coarser scale 
-                   province versus finer scale ecoregion geographic origin information."
+                   ) # end selectInput 
+
                  ), # end sidebarPanel
                  
                  mainPanel(
