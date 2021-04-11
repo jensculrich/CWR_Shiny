@@ -84,10 +84,10 @@ ui <- fluidPage(
       
       sidebarMenu(
         menuItem("Home", tabName = "home", icon = icon("home")),
-        menuItem("What are CWR?", tabName = "about", icon = icon("seedling")),
-        menuItem("Find native CWR", tabName = "find", icon = icon("thumbtack")),
-        menuItem("Explore CWR", tabName = "explore", icon = icon("map marked alt")),
-        menuItem("Aknowledgements", tabName = "aknow", icon = icon("tasks"))
+        menuItem("What are CWRs?", tabName = "about", icon = icon("seedling")),
+        menuItem("Find Native CWRs", tabName = "find", icon = icon("thumbtack")),
+        menuItem("Conservation in Gardens", tabName = "explore", icon = icon("map marked alt")),
+        menuItem("Acknowledgements", tabName = "aknow", icon = icon("tasks"))
         
       )
       
@@ -127,7 +127,7 @@ ui <- fluidPage(
                          ), # end sidebarPanel
                          mainPanel(
                            leafletOutput("choroplethPlot"),
-                           tableOutput("nativeRangeTable")
+                           dataTableOutput("nativeRangeTable")
                          ) # end mainPanel
                 ), # end tabPanel "CWR native ranges"
         
@@ -152,16 +152,15 @@ ui <- fluidPage(
                    selectInput("inProvincesOrEcoregions", "Choose a Geographic Display*",
                                choices = c("Provinces", "Ecoregions")
                                # could add a * noting that province is a subset of ecoregion (because ecoregion requires finer lat/long of origin)
-                   ), # end selectInput 
-                   "*note: a larger proportion of accessions are associated with coarser scale 
-                   province versus finer scale ecoregion geographic origin information."
+                   ) # end selectInput 
+
                  ), # end sidebarPanel
                  
                  mainPanel(
                    # plot the geographic range and gaps
                    plotOutput("gapPlot"),
                    # provide summary data for the CWR
-                   tableOutput("gapTable")
+                   dataTableOutput("gapTable")
                    # could also add a picture of the CWR
                  ) # end mainPanel
                  

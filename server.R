@@ -274,14 +274,10 @@ shinyServer(function(input, output, session){
     
   }) # end renderPlot
   
-  output$nativeRangeTable <- renderTable({
-    tableDataNativeRanges()
-  
+  output$nativeRangeTable <- DT::renderDataTable({
+    datatable(tableDataNativeRanges(), 
+              colnames = c("Region", "Crop", "Species", "Category", "CWRs in Region"))
   }) # end renderTable
-
-  
- 
-  
   
 ##################
 #  GAP ANALYSIS  #  
@@ -445,12 +441,11 @@ shinyServer(function(input, output, session){
         # format the data for the summary table 
         filter(row_number() == 1) %>% # for now only want one row (could adjust this with row per province)
         dplyr::select(num_native_province, num_covered_province,
-                      accessions_with_geo_data, accessions_no_geo_data, total_accessions_for_species) %>%
+                      accessions_with_geo_data, total_accessions_for_species) %>%
         mutate(num_covered_province = as.integer(num_covered_province)) %>%
         rename("native provinces" = num_native_province,
                "covered provinces" = num_covered_province,
                "accessions with geographic data" = accessions_with_geo_data,
-               "accessions lacking geographic data" = accessions_no_geo_data,
                "total accessions" = total_accessions_for_species)
       
     } else {
@@ -486,12 +481,11 @@ shinyServer(function(input, output, session){
         # format the data for the summary table 
         filter(row_number() == 1) %>%
         dplyr::select(num_native_ecoregions, num_covered_ecoregions,
-                      accessions_with_geo_data, accessions_no_geo_data, total_accessions_for_species) %>%
+                      accessions_with_geo_data, total_accessions_for_species) %>%
         mutate(num_covered_ecoregions = as.integer(num_covered_ecoregions)) %>%
         rename("native ecoregions" = num_native_ecoregions,
                "covered ecoregions" = num_covered_ecoregions,
                "accessions with geographic data" = accessions_with_geo_data,
-               "accessions lacking geographic data" = accessions_no_geo_data,
                "total accessions" = total_accessions_for_species)
     }
     
@@ -513,7 +507,7 @@ shinyServer(function(input, output, session){
       coord_sf(crs = crs_string) +
       scale_fill_manual(values = c("gray80", "gray18"), 
                         labels = c("No accessions with geographic data held in collection", 
-                                   ">1 accession with geographic data held in collection", 
+                                   "1 or more accession with geographic data held in collection", 
                                    "Outside of native range")) +
       guides(fill = guide_legend(title = "Conservation Status in Botanic Gardens", 
                     title.position = "top",
@@ -529,8 +523,10 @@ shinyServer(function(input, output, session){
     }) # end renderPlot renderDataTable
     
     # add gap table to the main panel using the reactive tableData() function
-    output$gapTable <- renderTable({
-      tableData()
+    output$gapTable <- DT::renderDataTable({
+      datatable(tableData(), 
+                colnames = c("Native Regions", "Regions Represented by Garden Collections", "Garden Accessions w/ Geographic Data", "Total Garden Accesions"))
     }) # renderTable
+    
     
 }) # server
