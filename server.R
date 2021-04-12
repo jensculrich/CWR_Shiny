@@ -22,8 +22,8 @@
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("canada_provinces.geojson", quiet = TRUE)
-province_gap_table <- as_data_frame(read.csv("province_gap_table.csv"))
-ecoregion_gap_table <- as_data_frame(read.csv("ecoregion_gap_table.csv"))
+province_gap_table <- as_tibble(read.csv("province_gap_table.csv"))
+ecoregion_gap_table <- as_tibble(read.csv("ecoregion_gap_table.csv"))
 
 # Define map projection
 crs_string = "+proj=lcc +lat_1=49 +lat_2=77 +lon_0=-91.52 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs"
@@ -42,8 +42,8 @@ theme_map <- function(base_size=9, base_family="") { # 3
           panel.grid=element_blank(),
           panel.spacing=unit(0, "lines"),
           plot.background=element_blank(),
-          legend.justification = c(0,0),
-          legend.position = c(-.25,0)
+          # legend.justification = c(0,0), # no longer using a legend
+          legend.position = "none"
     )
 }
 
@@ -509,10 +509,10 @@ shinyServer(function(input, output, session){
                         labels = c("No accessions with geographic data held in collection", 
                                    "1 or more accession with geographic data held in collection", 
                                    "Outside of native range")) +
-      guides(fill = guide_legend(title = "Conservation Status in Botanic Gardens", 
-                    title.position = "top",
-                    title.theme = element_text(size = 10, face = "bold")
-                    )) +
+      # guides(fill = guide_legend(title = "Conservation Status in Botanic Gardens", 
+      #               title.position = "top",
+      #               title.theme = element_text(size = 10, face = "bold")
+      #              )) +
       theme_map() +
       ggtitle("") +
       theme(panel.grid.major = element_line(color = "white"),
@@ -526,7 +526,6 @@ shinyServer(function(input, output, session){
     output$gapTable <- DT::renderDataTable({
       datatable(tableData(), 
                 colnames = c("Native Regions", "Regions Represented by Garden Collections", "Garden Accessions w/ Geographic Data", "Total Garden Accesions"))
-    }) # renderTable
-    
+    }) # end renderTable
     
 }) # server

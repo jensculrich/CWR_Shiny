@@ -159,6 +159,7 @@ ui <- fluidPage(
                  mainPanel(
                    # plot the geographic range and gaps
                    plotOutput("gapPlot"),
+                   includeMarkdown("www/conservation_tab.md"),
                    # provide summary data for the CWR
                    dataTableOutput("gapTable")
                    # could also add a picture of the CWR
