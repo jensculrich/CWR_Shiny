@@ -47,6 +47,12 @@ theme_map <- function(base_size=9, base_family="") { # 3
     )
 }
 
+province_gap_table_sf <- st_as_sf(province_gap_table, 
+                                  coords = c("longitude", "latitude"), 
+                                  crs = 4326, 
+                                  na.fail = FALSE) %>%
+  filter(country == "Canada")
+
 ################
 # SERVER LOGIC #
 ################
@@ -500,11 +506,15 @@ shinyServer(function(input, output, session){
         need(input$inSelectedCrop, "")
       )
       
+      subset_gap_table_sf <- province_gap_table_sf %>%
+        filter(species == input$inSelectedCWR)
+      
       # use ggplot to map the native range and conserved accessions  
       ggplot(plotData()) +
       geom_sf(aes(fill = as.factor(binary)),
         color = "gray60", size = 0.1) +
-      coord_sf(crs = crs_string) +
+        geom_sf(data = subset_gap_table_sf, color = 'skyblue', alpha = 0.8, size = 4) + 
+        coord_sf(crs = crs_string) +
       scale_fill_manual(values = c("gray80", "gray18"), 
                         labels = c("No accessions with geographic data held in collection", 
                                    "1 or more accession with geographic data held in collection", 
