@@ -150,7 +150,7 @@ ui <- fluidPage(
                     collapsible = T,
                     
                     # user chooses a group of interest
-                    selectInput("inSelectedGroup", "Select a Group", 
+                    selectInput("inSelectedGroup", "Select a Crop Category", 
                                 choices = province_gap_table$Group),
                     # user chooses a crop of interest
                     selectInput("inSelectedCrop", "Select a Crop", 

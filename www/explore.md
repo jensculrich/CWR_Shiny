@@ -1,3 +1,3 @@
 ### Explore CWR
 
-This section displays a CWR Ex Situ Conservation Gap Analysis. Begin by selecting a group of crops to view a list of native CWR.
+This section allows you to explore the conservation status of native CWRs in Canadian botanic gardens. Begin by selecting a crop category and crop to view a list of native CWRs. The resulting map shows the native range of the selected CWR, including regions that are represented (black) by plant accessions associated with geographic origin information (blue points), and regions that are not represented (gray) by plant accesions with geographic origin information. This inventory was built from a survey of 7 major Canadian botanic gardens in spring, 2021.
