@@ -221,6 +221,7 @@ shinyServer(function(input, output, session){
           rename("variable" = "n") %>%
         
           dplyr::select(ECO_NAME, Group, crop, species, variable) %>%
+          relocate(ECO_NAME, crop, species, Group, variable) %>%
           rename("total CWRs in ecoregion" = "variable")
 
       } else{ # map endemics
