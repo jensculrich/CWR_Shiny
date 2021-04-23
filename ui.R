@@ -43,8 +43,8 @@ canada_provinces_geojson <- st_read("data/canada_provinces.geojson", quiet = TRU
 # The table has a row for each native province that a species is native to with garden = NA
 # along with a row for each garden accession from each native province.
 # ecoregion_gap_table has similar setup
-province_gap_table <- as_tibble(read.csv("data/province_gap_table.csv"))
-ecoregion_gap_table <- as_tibble(read.csv("data/ecoregion_gap_table.csv"))
+province_gap_table <- as_tibble(read.csv("data/province_gap_table_post_manual_range_edits.csv"))
+ecoregion_gap_table <- as_tibble(read.csv("data/ecoregion_gap_table_post_manual_range_edits.csv"))
 
 # order gap tables so that user choices are alphabetically organized
 province_gap_table <- province_gap_table[order(province_gap_table$crop),]

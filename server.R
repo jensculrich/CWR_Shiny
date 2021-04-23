@@ -22,8 +22,8 @@
 # Load required data and shapefiles for building reactive maps and data tables
 canada_ecoregions_geojson <- st_read("data/canada_ecoregions_clipped.geojson", quiet = TRUE)
 canada_provinces_geojson <- st_read("data/canada_provinces.geojson", quiet = TRUE)
-province_gap_table <- as_tibble(read.csv("data/province_gap_table.csv"))
-ecoregion_gap_table <- as_tibble(read.csv("data/ecoregion_gap_table.csv"))
+province_gap_table <- as_tibble(read.csv("data/province_gap_table_post_manual_range_edits.csv"))
+ecoregion_gap_table <- as_tibble(read.csv("data/ecoregion_gap_table_post_manual_range_edits.csv"))
 
 # Define map projection
 crs_string = "+proj=lcc +lat_1=49 +lat_2=77 +lon_0=-91.52 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs"
