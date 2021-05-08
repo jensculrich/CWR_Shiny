@@ -127,7 +127,10 @@ ui <- fluidPage(
                                   choices = c("Provinces", "Ecoregions")),
                       # want to update this so it's dependnet on users choice of provinces v. ecoregions
                       selectInput("inRegion", "Filter CWR List by a Region:", 
-                                  choices = province_gap_table$province)
+                                  choices = c("Alberta", "British Columbia", "Manitoba", "Newfoundland and Labrador",
+                                              "New Brunswick", "Northwest Territories", "Nova Scotia", "Nunavut", 
+                                              "Ontario", "Prince Edward Island", "Quebec", 
+                                              "Saskatchewan", "Yukon"))
                       ),
                   
                   box(#title = "Range map", solidHeader = T,
