@@ -516,14 +516,10 @@ shinyServer(function(input, output, session){
         color = "gray60", size = 0.1) +
         geom_sf(data = subset_gap_table_sf, color = 'skyblue', alpha = 0.8, size = 4) + 
         coord_sf(crs = crs_string) +
-      scale_fill_manual(values = c("gray80", "gray18"), 
+      scale_fill_manual(values = c("0" = "gray80", "1" = "gray18"), 
                         labels = c("No accessions with geographic data held in collection", 
                                    "1 or more accession with geographic data held in collection", 
                                    "Outside of native range")) +
-      # guides(fill = guide_legend(title = "Conservation Status in Botanic Gardens", 
-      #               title.position = "top",
-      #               title.theme = element_text(size = 10, face = "bold")
-      #              )) +
       theme_map() +
       ggtitle("") +
       theme(panel.grid.major = element_line(color = "white"),
