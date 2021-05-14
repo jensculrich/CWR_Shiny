@@ -1,16 +1,3 @@
-# big things to update: 
-
-# allow user to choose inputs without having to select a previous input, e.g. can choose Crop w/out first specifying Crop group
-# update figure legends/any interpretation guides
-# update crop categories, maybe add crop categories to native ranges tab
-# overlay garden collection coordinate points on gap analysis tab
-# acknowledgements tab: (list of gardens that contributed data (maybe a map as well), Tara, Colin, Abby, Axel and Berry Bunch, Claire, and Angela )
-# could add associated wiki picture of crops? 
-# update link to "master list"
-# region options needs to sift back to provinces if you choose ecoregion, then switch back to province view
-# (right now it shifts to ecoregion but won't shift back if you update again)
-# change gap analysis map so that it's am imteractive leaflet (as in the native hotspot maps)
-
 ###############################
 # server.R for CWR Shiny App  #
 ###############################
