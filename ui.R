@@ -2,6 +2,8 @@
 # ui.R for CWR Shiny App  #
 ###########################
 
+# Written by Jens Ulrich and Erika Luna Perez
+
 ###########################
 # LIBRARIES               #
 ###########################
@@ -9,17 +11,10 @@
 library(shiny)
 library(shinythemes)
 library(sf) # the base package manipulating shapes
-library(rgeos)
-library(rgdal) # geo data abstraction library
-library(geojsonio) # geo json input and output
 library(spdplyr) # the `dplyr` counterpart for shapes
-library(rmapshaper) # the package that allows geo shape transformation
-library(magrittr) # data wrangling
 library(dplyr) # data wrangling
 library(tidyverse) # data wrangling
 library(ggplot2) # plotting
-library(raster) 
-library(viridis) # for colour schemes
 library(tigris) # for joining spatial data with data frame classes
 library(leaflet)
 library(htmltools)

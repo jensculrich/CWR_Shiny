@@ -2,6 +2,8 @@
 # server.R for CWR Shiny App  #
 ###############################
 
+# Written by Jens Ulrich and Erika Luna Perez
+
 ########################################
 # DATA WRANGLING AND SUPPORT FUNCTIONS #
 ########################################
@@ -15,7 +17,7 @@ ecoregion_gap_table <- as_tibble(read.csv("data/ecoregion_gap_table_post_manual_
 # Define map projection
 crs_string = "+proj=lcc +lat_1=49 +lat_2=77 +lon_0=-91.52 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs"
 
-# Define the mappping theme -- remove axes, ticks, borders, legends, etc.
+# Define the mapping theme -- remove axes, ticks, borders, legends, etc.
 # Come back to this and add a legend
 theme_map <- function(base_size=9, base_family="") { # 3
   require(grid)
@@ -34,6 +36,7 @@ theme_map <- function(base_size=9, base_family="") { # 3
     )
 }
 
+# spatially project the garden data
 province_gap_table_sf <- st_as_sf(province_gap_table, 
                                   coords = c("longitude", "latitude"), 
                                   crs = 4326, 
@@ -51,10 +54,10 @@ province_gap_table_sf <- st_as_sf(province_gap_table,
 shinyServer(function(input, output, session){
 
 ##################
-#  NATIVE RANGE  #  
+#  NATIVE CWRs  #  
 ##################
   
-# for native range tab,
+# for native CWR tab,
 # user can input province or ecoregion consideration
 # and then generate a map and a table of native OR endemic CWRs by region focus
 # to do so, the server side needs to generate plot and table data
@@ -81,22 +84,27 @@ shinyServer(function(input, output, session){
     } 
   }) 
   
-  
+  # plot candian provinces or ecoregions colored by # of CWRs per region
   plotDataNativeRanges <- reactive({
-    if(input$inNativeProvincesOrEcoregions == "Provinces"){
-      if(input$inTotalOrEndemic == "Identify All Native CWRs") {
+    if(input$inNativeProvincesOrEcoregions == "Provinces"){ # if user chooses provinces...
+      if(input$inTotalOrEndemic == "Identify All Native CWRs") { # if user chooses to show all CWRs...
         native_occurrence_heatmap_provinces <- province_gap_table %>%
-          # filter for garden = NA
-          filter(is.na(garden)) %>%
           # group by province
           group_by(province) %>%
+          # distinct (since when there are >1 accessions for a species from the province the 
+          # row gets expanded. We just want a count of one row per species found in the province)
+          distinct(species, .keep_all = TRUE) %>%
           # tally the number of species
           add_tally() %>%
           rename("variable" = "n")
         } else{
           native_occurrence_heatmap_provinces <- province_gap_table %>%
-          # filter for garden = NA
-          filter(is.na(garden)) %>%
+          # distinct (since when there are >1 accessions for a species from the province the 
+          # row gets expanded. We just want a count of one row per species found in the province)
+          group_by(province) %>%
+          distinct(species, .keep_all = TRUE) %>%
+          ungroup() %>%
+          distinct(species, .keep_all = TRUE) %>%
           # identify endemic species per province
           # species that occur in only one province
           group_by(species) %>%
@@ -121,17 +129,21 @@ shinyServer(function(input, output, session){
     # map by ecoregion
     if(input$inTotalOrEndemic == "Identify All Native CWRs") { # map natives
       native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
-        # filter for garden = NA
-        filter(is.na(garden)) %>%
         # group by ecoregion
         group_by(ECO_NAME) %>%
+        # distinct (since when there are >1 accessions for a species from the province the 
+        # row gets expanded. We just want a count of one row per species found in the province)
+        distinct(species, .keep_all = TRUE) %>%
         # tally the number of species
         add_tally() %>%
         rename("variable" = "n") 
     } else{ # map endemics
       native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
-        # filter for garden = NA
-        filter(is.na(garden)) %>%
+        # distinct (since when there are >1 accessions for a species from the province the 
+        # row gets expanded. We just want a count of one row per species found in the province)
+        group_by(ECO_NAME) %>%
+        distinct(species, .keep_all = TRUE) %>%
+        ungroup() %>%
         # identify endemic species per ecoregion
         # species that occur in only one ecoregion
         group_by(species) %>%
@@ -161,19 +173,23 @@ shinyServer(function(input, output, session){
         native_occurrence_heatmap_provinces <- province_gap_table %>%
           # filter the table to the selected region
           filter(province == input$inRegion) %>%
-          # filter for garden = NA
-          filter(is.na(garden)) %>%
           # group by province
           group_by(province) %>%
+          # distinct (since when there are >1 accessions for a species from the province the 
+          # row gets expanded. We just want a count of one row per species found in the province)
+          distinct(species, .keep_all = TRUE) %>%
           # tally the number of species
           add_tally() %>%
           dplyr::select(province, crop, species, Group, n) %>%
           rename("total CWRs in province" = "n") 
       } else{
         native_occurrence_heatmap_provinces <- province_gap_table %>%
-          # filter for garden = NA
-          filter(is.na(garden)) %>%
           # identify endemic species per province
+          # distinct (since when there are >1 accessions for a species from the province the 
+          # row gets expanded. We just want a count of one row per species found in the province)
+          group_by(province) %>%
+          distinct(species, .keep_all = TRUE) %>%
+          ungroup() %>%
           # species that occur in only one province
           group_by(species) %>%
           # if group is only one row, endemic = 1, else endemic = 0
@@ -199,10 +215,11 @@ shinyServer(function(input, output, session){
         native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
           # filter the table to the selected region
           filter(ECO_NAME == input$inRegion) %>%
-          # filter for garden = NA
-          filter(is.na(garden)) %>%
           # group by ecoregion
           group_by(ECO_NAME) %>%
+          # distinct (since when there are >1 accessions for a species from the province the 
+          # row gets expanded. We just want a count of one row per species found in the province)
+          distinct(species, .keep_all = TRUE) %>%
           # tally the number of species
           add_tally() %>%
           rename("variable" = "n") %>%
@@ -213,8 +230,11 @@ shinyServer(function(input, output, session){
 
       } else{ # map endemics
         native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
-          # filter for garden = NA
-          filter(is.na(garden)) %>%
+          # distinct (since when there are >1 accessions for a species from the province the 
+          # row gets expanded. We just want a count of one row per species found in the province)
+          group_by(ECO_NAME) %>%
+          distinct(species, .keep_all = TRUE) %>%
+          ungroup() %>%
           # identify endemic species per ecoregion
           # species that occur in only one ecoregino
           group_by(species) %>%
@@ -255,7 +275,7 @@ shinyServer(function(input, output, session){
         sep="") %>%
         lapply(htmltools::HTML)
       
-      # Basic choropleth with leaflet?
+      # Basic choropleth with leaflet
       leaflet(plotDataNativeRanges()) %>% 
         addTiles()  %>% 
         setView( lat=60, lng=-98 , zoom=3) %>%
@@ -279,11 +299,11 @@ shinyServer(function(input, output, session){
   
   # filter the data set for a CWR of interest
   observe({ 
-    #user chooses the group as the selected input
+    # user chooses the group as the selected input
     x <- input$inSelectedGroup
     
     # filter the full gap table based on user selection
-   filtered_CWRs <- filter(province_gap_table, province_gap_table$Group == x)
+    filtered_CWRs <- filter(province_gap_table, province_gap_table$Group == x)
   
     # order filtered table so that user choices for CWR are alphabetically organized
     # to facilitate user choice
@@ -292,13 +312,14 @@ shinyServer(function(input, output, session){
     updateSelectInput(session, "inSelectedCrop",
                       label = paste("Select a Crop"),
                       choices = filtered_CWRs$crop
-   ) 
+    ) # updateSelectInput
     
     
     
   }) # observe
   
   observe({
+    # After user selects a group, user may select a crop from within that group
     x <- input$inSelectedCrop
 
     filtered_CWRs <- filter(province_gap_table, province_gap_table$crop == x)
