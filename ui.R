@@ -20,6 +20,10 @@ library(leaflet)
 library(htmltools)
 library(shinydashboard)
 library(DT)
+library(rgeos)
+library(rgdal)
+library(rmapshaper)
+library(sp)
 
 ########################################
 # DATA WRANGLING AND SUPPORT FUNCTIONS #
