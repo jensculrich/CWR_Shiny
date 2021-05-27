@@ -90,7 +90,7 @@ shinyServer(function(input, output, session){
       if(input$inTotalOrEndemic == "Identify All Native CWRs") { # if user chooses to show all CWRs...
         native_occurrence_heatmap_provinces <- province_gap_table %>%
           # group by province
-          group_by(province) %>%
+          dplyr::group_by(province) %>%
           # distinct (since when there are >1 accessions for a species from the province the 
           # row gets expanded. We just want a count of one row per species found in the province)
           distinct(species, .keep_all = TRUE) %>%
@@ -101,20 +101,20 @@ shinyServer(function(input, output, session){
           native_occurrence_heatmap_provinces <- province_gap_table %>%
           # distinct (since when there are >1 accessions for a species from the province the 
           # row gets expanded. We just want a count of one row per species found in the province)
-          group_by(province) %>%
+          dplyr::group_by(province) %>%
           distinct(species, .keep_all = TRUE) %>%
           ungroup() %>%
           distinct(species, .keep_all = TRUE) %>%
           # identify endemic species per province
           # species that occur in only one province
-          group_by(species) %>%
+          dplyr::group_by(species) %>%
           # if group is only one row, endemic = 1, else endemic = 0
           add_tally() %>%
           rename("native_provinces_for_species" = "n") %>%
           mutate(is_endemic = ifelse(
             native_provinces_for_species == 1, 1, 0)) %>%
           ungroup() %>%
-          group_by(province) %>%
+          dplyr::group_by(province) %>%
           mutate(variable = sum(is_endemic))
           
         } # end nested else, endemics
@@ -130,7 +130,7 @@ shinyServer(function(input, output, session){
     if(input$inTotalOrEndemic == "Identify All Native CWRs") { # map natives
       native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
         # group by ecoregion
-        group_by(ECO_NAME) %>%
+        dplyr::group_by(ECO_NAME) %>%
         # distinct (since when there are >1 accessions for a species from the province the 
         # row gets expanded. We just want a count of one row per species found in the province)
         distinct(species, .keep_all = TRUE) %>%
@@ -141,19 +141,19 @@ shinyServer(function(input, output, session){
       native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
         # distinct (since when there are >1 accessions for a species from the province the 
         # row gets expanded. We just want a count of one row per species found in the province)
-        group_by(ECO_NAME) %>%
+        dplyr::group_by(ECO_NAME) %>%
         distinct(species, .keep_all = TRUE) %>%
         ungroup() %>%
         # identify endemic species per ecoregion
         # species that occur in only one ecoregion
-        group_by(species) %>%
+        dplyr::group_by(species) %>%
         # if group is only one row, endemic = 1, else endemic = 0
         add_tally() %>%
         rename("native_ecoregions_for_species" = "n") %>%
         mutate(is_endemic = ifelse(
           native_ecoregions_for_species == 1, 1, 0)) %>%
         ungroup() %>%
-        group_by(ECO_NAME) %>%
+        dplyr::group_by(ECO_NAME) %>%
         mutate(variable = sum(is_endemic))
       } # end nested else, endemics
       
@@ -174,7 +174,7 @@ shinyServer(function(input, output, session){
           # filter the table to the selected region
           filter(province == input$inRegion) %>%
           # group by province
-          group_by(province) %>%
+          dplyr::group_by(province) %>%
           # distinct (since when there are >1 accessions for a species from the province the 
           # row gets expanded. We just want a count of one row per species found in the province)
           distinct(species, .keep_all = TRUE) %>%
@@ -187,18 +187,18 @@ shinyServer(function(input, output, session){
           # identify endemic species per province
           # distinct (since when there are >1 accessions for a species from the province the 
           # row gets expanded. We just want a count of one row per species found in the province)
-          group_by(province) %>%
+          dplyr::group_by(province) %>%
           distinct(species, .keep_all = TRUE) %>%
           ungroup() %>%
           # species that occur in only one province
-          group_by(species) %>%
+          dplyr::group_by(species) %>%
           # if group is only one row, endemic = 1, else endemic = 0
           add_tally() %>%
           rename("native_provinces_for_species" = "n") %>%
           mutate(is_endemic = ifelse(
             native_provinces_for_species == 1, 1, 0)) %>%
           ungroup() %>%
-          group_by(province) %>%
+          dplyr::group_by(province) %>%
           mutate(variable = sum(is_endemic)) %>%
           
           # filter the table to the selected region
@@ -216,7 +216,7 @@ shinyServer(function(input, output, session){
           # filter the table to the selected region
           filter(ECO_NAME == input$inRegion) %>%
           # group by ecoregion
-          group_by(ECO_NAME) %>%
+          dplyr::group_by(ECO_NAME) %>%
           # distinct (since when there are >1 accessions for a species from the province the 
           # row gets expanded. We just want a count of one row per species found in the province)
           distinct(species, .keep_all = TRUE) %>%
@@ -232,19 +232,19 @@ shinyServer(function(input, output, session){
         native_occurrence_heatmap_ecoregion <- ecoregion_gap_table %>%
           # distinct (since when there are >1 accessions for a species from the province the 
           # row gets expanded. We just want a count of one row per species found in the province)
-          group_by(ECO_NAME) %>%
+          dplyr::group_by(ECO_NAME) %>%
           distinct(species, .keep_all = TRUE) %>%
           ungroup() %>%
           # identify endemic species per ecoregion
           # species that occur in only one ecoregino
-          group_by(species) %>%
+          dplyr::group_by(species) %>%
           # if group is only one row, endemic = 1, else endemic = 0
           add_tally() %>%
           rename("native_ecoregions_for_species" = "n") %>%
           mutate(is_endemic = ifelse(
             native_ecoregions_for_species == 1, 1, 0)) %>%
           ungroup() %>%
-          group_by(ECO_NAME) %>%
+          dplyr::group_by(ECO_NAME) %>%
           mutate(variable = sum(is_endemic)) %>%
           
           # filter the table to the selected region
@@ -348,7 +348,7 @@ shinyServer(function(input, output, session){
         filter(province_gap_table$species == input$inSelectedCWR) %>%
         
         # tally the number of rows in each province with an existing accession (garden is not NA)
-        group_by(province) %>%
+        dplyr::group_by(province) %>%
         add_tally(!is.na(garden)) %>%
         rename("accessions_in_province" = "n")  %>%
         ungroup() %>%
@@ -359,7 +359,7 @@ shinyServer(function(input, output, session){
         mutate(accessions_with_geo_data = sum(!is.na(province))) %>%
         
         # convert number of accessions to a binary "is there or is there not an accession from x region"
-        group_by(province) %>%
+        dplyr::group_by(province) %>%
         filter(row_number() == 1) %>%
         filter(!is.na(province)) %>%
         mutate(binary = ifelse(
@@ -384,7 +384,7 @@ shinyServer(function(input, output, session){
         filter(ecoregion_gap_table$species == input$inSelectedCWR) %>%
         
         # tally the number of rows in each ecoregion with an existing accession (garden is not NA)
-        group_by(ECO_NAME) %>%
+        dplyr::group_by(ECO_NAME) %>%
         add_tally(!is.na(garden)) %>%
         rename("accessions_in_ecoregion" = "n")  %>%
         ungroup() %>%
@@ -395,7 +395,7 @@ shinyServer(function(input, output, session){
         mutate(accessions_with_geo_data = sum(!is.na(ECO_NAME))) %>%
         
         # convert number of accessions to a binary "is there or is there not an accession from x region"
-        group_by(ECO_NAME) %>%
+        dplyr::group_by(ECO_NAME) %>%
         filter(row_number() == 1) %>%
         filter(!is.na(ECO_NAME)) %>%
         mutate(binary = ifelse(
@@ -429,7 +429,7 @@ shinyServer(function(input, output, session){
         filter(province_gap_table$species == input$inSelectedCWR) %>%
         
         # tally the number of rows in each province with an existing accession (garden is not NA)
-        group_by(province) %>%
+        dplyr::group_by(province) %>%
         add_tally(!is.na(garden)) %>%
         rename("accessions_in_province" = "n")  %>%
         ungroup() %>%
@@ -440,7 +440,7 @@ shinyServer(function(input, output, session){
         mutate(total_accessions_for_species = accessions_with_geo_data + accessions_no_geo_data) %>%
         
         # convert number of accessions to a binary "is there or is there not an accession from x region"
-        group_by(province) %>%
+        dplyr::group_by(province) %>%
         filter(row_number() == 1) %>%
         filter(!is.na(province)) %>%
         mutate(binary = ifelse(
@@ -469,7 +469,7 @@ shinyServer(function(input, output, session){
         filter(ecoregion_gap_table$species == input$inSelectedCWR) %>%
         
         # tally the number of rows in each ecoregion with an existing accession (garden is not NA)
-        group_by(ECO_NAME) %>%
+        dplyr::group_by(ECO_NAME) %>%
         add_tally(!is.na(garden)) %>%
         rename("accessions_in_ecoregion" = "n")  %>%
         ungroup() %>%
@@ -480,7 +480,7 @@ shinyServer(function(input, output, session){
         mutate(total_accessions_for_species = accessions_with_geo_data + accessions_no_geo_data) %>%
         
         # convert number of accessions to a binary "is there or is there not an accession from x region"
-        group_by(ECO_NAME) %>%
+        dplyr::group_by(ECO_NAME) %>%
         filter(row_number() == 1) %>%
         filter(!is.na(ECO_NAME)) %>%
         mutate(binary = ifelse(
