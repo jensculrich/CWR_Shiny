@@ -24,6 +24,7 @@ library(rgeos)
 library(rgdal)
 library(rmapshaper)
 library(sp)
+library(grid)
 
 ########################################
 # DATA WRANGLING AND SUPPORT FUNCTIONS #
